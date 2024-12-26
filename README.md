@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Installation
 
-## Getting Started
+Antes de qualquer comando, precisamos verificar se temos os seguintes requisitos: 
+- [ ] [NodeJS](https://nodejs.org/en)
+- [ ] [Docker](https://www.docker.com/)
+- [ ] [VSCode](https://code.visualstudio.com/)
+	- [ ] Opcional - [VSCode Insider](https://code.visualstudio.com/insiders/)
 
-First, run the development server:
+Depois das ferramentas instaladas, vamos instalar as dependências do projeto:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+#### `With npm`
+
+Esse gerenciador de pacotes já vem por padrão no `NodeJS`.
+
+```shell
+> npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### `With yarn`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Esse gerenciador de pacotes não vem instalado por padrão junto ao `NodeJS`, porém podemos utilizar ele seguindo o seguinte [tutorial de instalação](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) e executar o comando abaixo.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```shell
+> yarn
+```
 
-## Learn More
+#### `With pnpm`
 
-To learn more about Next.js, take a look at the following resources:
+Esse gerenciador de pacotes não vem instalado por padrão junto ao `NodeJS`, porém podemos utilizar ele seguindo o seguinte [tutorial de instalação](https://pnpm.io/installation) e executar o comando abaixo.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```shell
+> pnpm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+Depois da instalação das dependências, precisamos rodar o banco de dados local, para isso abra o terminal e rode o seguinte comando para criação do banco.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```shell
+> docker-compose up -d
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Após a criação do container execute o seguinte comando para aplicar as migrações no banco:
+
+```shell
+# with npm
+> npx prisma migrate dev
+
+# with yarn
+> yarn prisma migrate dev
+
+# with pnpm
+> pnpm prisma migrate dev
+```
+
+## Criação do usuário para acesso ao sistema
+
+Para poder acessar o sistema precisamos executar um comando que irá finalizar a preparação do nosso ambiente de desenvolvimento, para tal execute o seguinte comando: 
+
+```shell
+# with npm
+> npx prisma db seed
+
+# with yarn
+> yarn prisma db seed
+
+# with pnpm
+> pnpm prisma db seed
+```
+
+Depois disso feito o ambiente está configurado e pronto para poder ser executado 🚀🚀🚀
+
+
+## Rodando o Projeto
+
+Para poder rodar o projeto é bem simples, basta executar o comando:
+
+```shell
+# with npm
+> npm run dev
+
+# with yarn
+> yarn dev
+
+# with pnpm
+> pnpm dev
+```
+
+Depois disso acesso o [`http://localhost:3000`](http://localhost:3000).
+
+O projeto está utilizando a nova versão do [NextJS](https://nextjs.org/), com o uso de server components, server actions, layouts, loading screens, entre outras funcionalidades... Segue o link para a documentação da versão nova: [NextJS](https://nextjs.org/docs/app)

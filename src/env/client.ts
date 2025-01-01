@@ -10,6 +10,7 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string(),
     NEXT_PUBLIC_FIREBASE_APP_ID: z.string(),
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string(),
+    NEXT_PUBLIC_PDF_GENERATION_API: z.string().url(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -24,5 +25,6 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID:
       process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    NEXT_PUBLIC_PDF_GENERATION_API: process.env.NEXT_PUBLIC_PDF_GENERATION_API,
   },
 })

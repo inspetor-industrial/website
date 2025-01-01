@@ -37,6 +37,8 @@ export const authOptions: NextAuthOptions = {
 
         const hasSignedIn = !!response.user
         if (hasSignedIn) {
+          const tokenId = await response.user.getIdToken(true)
+
           const userProfile = await firebase.firestore
             .collection(firebaseModels.users)
             .doc(userOnFirebase.uid)
@@ -51,6 +53,7 @@ export const authOptions: NextAuthOptions = {
             companyId: userProfile.data()?.companyId ?? 'unknown',
             email: response.user.email,
             image: response.user.photoURL,
+            firebaseToken: tokenId,
           }
         }
 
@@ -70,9 +73,11 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id
         token.companyId = user.companyId
+        token.firebaseToken = user.firebaseToken
       }
       return token
     },
+
     session: async ({ session, token }) => {
       // Adicione o ID do usuário à sessão
       // TODO: check company of user
@@ -80,7 +85,9 @@ export const authOptions: NextAuthOptions = {
       if (token.id) {
         session.user.id = token.id
         session.user.companyId = token.companyId
+        session.user.firebaseToken = token.firebaseToken
       }
+
       return session
     },
   },

@@ -16,8 +16,10 @@ export default async function PreviewValvePage({
   const { download } = await searchParams
   const isDownload = String(download) === 'true'
 
+  const Container = isDownload ? 'div' : ScrollArea
+
   return (
-    <ScrollArea className="w-screen h-screen">
+    <Container className="w-screen max-h-screen" id="preview-valve-page">
       <section className="w-full h-96 flex justify-center items-center flex-col gap-10">
         <Image
           src={LogoReport}
@@ -43,7 +45,7 @@ export default async function PreviewValvePage({
           <DownloadButton />
         </div>
       )}
-      <ScrollBar orientation="vertical" />
-    </ScrollArea>
+      {!isDownload && <ScrollBar orientation="vertical" />}
+    </Container>
   )
 }

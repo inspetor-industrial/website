@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { PageBreak } from '@inspetor/app/reports/components/page-break'
@@ -12,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@inspetor/components/ui/table'
+import { events } from '@inspetor/constants/events'
 import { status } from '@inspetor/constants/status'
 import { units } from '@inspetor/constants/units'
 import { toast } from '@inspetor/hooks/use-toast'
@@ -19,7 +21,7 @@ import { getUser } from '@inspetor/http/firebase/user/get-user'
 import { getValve } from '@inspetor/http/firebase/valve/get-valve'
 import { dayjsApi } from '@inspetor/lib/dayjs'
 import { useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { Fragment } from 'react'
 
@@ -60,6 +62,7 @@ export function ReportPDFPreview() {
         // return null
       }
 
+      document.dispatchEvent(new CustomEvent(events.loading.finished))
       return user
     },
     enabled: !!valve,
@@ -72,13 +75,10 @@ export function ReportPDFPreview() {
 
   return (
     <Fragment>
-      <Image
-        src={ApplicationBackground}
+      <img
+        src={ApplicationBackground.src}
         alt="Background"
-        width={1920}
-        height={1080}
-        quality={100}
-        className="h-96 grayscale-90"
+        className="h-96 grayscale-90 w-full"
       />
       <div className="px-16">
         <div className="flex flex-col justify-center items-center my-4 uppercase">

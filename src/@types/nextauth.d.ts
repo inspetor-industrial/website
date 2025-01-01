@@ -4,6 +4,7 @@ import { AdapterUser as DefaultAdapterUser } from 'next-auth/adapters'
 declare module 'next-auth/adapters' {
   interface AdapterUser extends DefaultAdapterUser {
     companyId: string
+    firebaseToken: string
   }
 }
 
@@ -14,12 +15,27 @@ declare module 'next-auth' {
       id: string
 
       companyId: string
+      firebaseToken: string
     } & DefaultSession['user']
   }
+
+  // interface CallbacksOptions {
+  //   session?: (
+  //     params: {
+  //       session: Session
+  //       token: JWT
+  //       user: AdapterUser
+  //     } & {
+  //       newSession: any
+  //       trigger: 'update'
+  //     },
+  //   ) => Promise<Session | null>
+  // }
 
   interface User extends DefaultUser {
     id: string
     companyId: string
+    firebaseToken: string
   }
 }
 
@@ -28,5 +44,6 @@ declare module 'next-auth/jwt' {
     /** The user's unique ID */
     id: string
     companyId: string
+    firebaseToken: string
   }
 }

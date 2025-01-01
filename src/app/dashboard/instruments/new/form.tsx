@@ -249,6 +249,7 @@ export function InstrumentForm() {
               <FormLabel>Documentos</FormLabel>
               <FormControl>
                 <DocumentField
+                  baseFolderToUpload="instruments"
                   accept="image/*"
                   placeholder="Selecione um documento"
                   onChange={field.onChange}

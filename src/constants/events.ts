@@ -11,6 +11,9 @@ export const events = {
     sending: buildEventName('contact-email-sending'),
     sent: buildEventName('contact-email-sent'),
   },
+  loading: {
+    finished: buildEventName('loading-finished'),
+  },
   models: {
     client: {
       delete: buildEventName('client-delete'),

@@ -1,6 +1,9 @@
 import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { firebaseModels } from '@inspetor/constants/firebase-models'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  signInWithCustomToken,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -74,7 +77,16 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id
         token.companyId = user.companyId
         token.firebaseToken = user.firebaseToken
+
+        const firebase = getFirebaseApps()
+        if (!firebase) {
+          return token
+        }
+
+        const firebaseToken = await firebase.auth.createCustomToken(user.id)
+        user.firebaseToken = firebaseToken
       }
+
       return token
     },
 
@@ -87,6 +99,22 @@ export const authOptions: NextAuthOptions = {
         session.user.companyId = token.companyId
         session.user.firebaseToken = token.firebaseToken
       }
+
+      const firebase = getFirebaseApps()
+      if (!firebase) {
+        return session
+      }
+
+      const firebaseToken = await firebase.auth.createCustomToken(
+        session.user.id,
+      )
+
+      const userLogged = await signInWithCustomToken(
+        firebase.clientAuth,
+        firebaseToken,
+      )
+
+      session.user.firebaseToken = await userLogged.user.getIdToken(true)
 
       return session
     },

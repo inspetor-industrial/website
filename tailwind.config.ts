@@ -21,6 +21,7 @@ export default {
             '400': '#bfbfbf',
             '600': '#aaa4a4',
             '700': '#8c8c8c',
+            '800': '#7e7e7f',
             foreground: '#000000',
           },
           dark: {
@@ -29,6 +30,9 @@ export default {
               '800': '#002b3f',
               foreground: '#ffffff',
             },
+          },
+          green: {
+            700: '#484848',
           },
         },
         background: 'hsl(var(--background))',

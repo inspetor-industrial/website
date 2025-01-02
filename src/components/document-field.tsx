@@ -93,6 +93,7 @@ export function DocumentField({
 
     const storageRef = ref(storage, imagePath)
     const uploadTask = uploadBytesResumable(storageRef, file)
+
     setCurrentUploadTask(uploadTask)
 
     uploadTask.on(

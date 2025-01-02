@@ -7,6 +7,14 @@ export type Document = {
 
   id: string
 
+  configs?: {
+    position: {
+      x: number
+      y: number
+    }
+    zoom: number
+  }
+
   createdAt: number
   updatedAt: number
   createdBy: string

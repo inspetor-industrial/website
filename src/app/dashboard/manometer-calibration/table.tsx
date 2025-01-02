@@ -1,6 +1,6 @@
 'use client'
 
-import { Valve } from '@inspetor/@types/models/valve'
+import { Manometer } from '@inspetor/@types/models/manometer'
 import { Pagination } from '@inspetor/components/table/pagination'
 import {
   Table,
@@ -44,7 +44,7 @@ import { useProgress } from 'react-transition-progress'
 
 import { columns } from './columns'
 
-export function ValveCalibrationTable() {
+export function ManometerCalibrationTable() {
   const [search] = useQueryState('search', parseAsString.withDefault(''))
   const [currentPage] = useQueryState('page', parseAsInteger.withDefault(1))
 
@@ -52,12 +52,12 @@ export function ValveCalibrationTable() {
 
   const { data, isPending, refetch } = useQuery<{
     total: number
-    valves: Valve[]
+    manometers: Manometer[]
   }>({
-    queryKey: ['valves', search, currentPage],
+    queryKey: ['manometers', search, currentPage],
     throwOnError: SentryReactQueryCatcher,
     queryFn: async () => {
-      const coll = collection(firestore, firebaseModels.valves)
+      const coll = collection(firestore, firebaseModels.manometers)
       const q = query(
         coll,
         and(
@@ -100,12 +100,12 @@ export function ValveCalibrationTable() {
           orderBy('rowNumber'),
         ),
       )
-      const valves = await getDocs(q)
+      const manometers = await getDocs(q)
 
       return {
         total: total.data().count,
-        valves: valves.docs.map((doc) => {
-          const data = doc.data() as Valve
+        manometers: manometers.docs.map((doc) => {
+          const data = doc.data() as Manometer
           return {
             ...data,
             id: doc.id,
@@ -117,7 +117,7 @@ export function ValveCalibrationTable() {
   })
 
   const table = useReactTable({
-    data: data?.valves ?? [],
+    data: data?.manometers ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -129,101 +129,104 @@ export function ValveCalibrationTable() {
     function handleNavigateToRegisterPage() {
       startProgressBar()
 
-      router.push('/dashboard/valve-calibration/new')
+      router.push('/dashboard/manometer-calibration/new')
     }
 
     function handleNavigateToDetailPage(event: Event) {
-      const { valveId } = (event as CustomEvent).detail
+      const { manometerId } = (event as CustomEvent).detail
 
       startProgressBar()
 
-      router.push(`/dashboard/valve-calibration/${valveId}?detail=true`)
+      router.push(`/dashboard/manometer-calibration/${manometerId}?detail=true`)
     }
 
     function handleNavigateToUpdatePage(event: Event) {
-      const { valveId } = (event as CustomEvent).detail
+      const { manometerId } = (event as CustomEvent).detail
 
       startProgressBar()
 
-      router.push(`/dashboard/valve-calibration/${valveId}`)
+      router.push(`/dashboard/manometer-calibration/${manometerId}`)
     }
 
     function handleNavigateToPreviewPage(event: Event) {
-      const { valveId } = (event as CustomEvent).detail
+      const { manometerId } = (event as CustomEvent).detail
 
       startProgressBar()
 
-      router.push(`/reports/valve/preview/${valveId}`)
+      router.push(`/reports/manometer/preview/${manometerId}`)
     }
 
-    async function handleDeleteSchedule(event: Event) {
-      const { valve } = (event as CustomEvent).detail
+    async function handleDeleteManometer(event: Event) {
+      const { manometer } = (event as CustomEvent).detail
 
       try {
-        const coll = collection(firestore, firebaseModels.valves)
-        const docRef = doc(coll, valve.id)
+        const coll = collection(firestore, firebaseModels.manometers)
+        const docRef = doc(coll, manometer.id)
 
         await deleteDoc(docRef)
 
         toast({
-          title: 'Válvula deletado com sucesso!',
+          title: 'Manômetro deletado com sucesso!',
           variant: 'success',
         })
 
         refetch()
       } catch {
         toast({
-          title: 'Erro ao deletar válvula!',
+          title: 'Erro ao deletar manômetro!',
           variant: 'destructive',
         })
       }
     }
 
     window.addEventListener(
-      events.models.valves.navigate.to.register,
+      events.models.manometers.navigate.to.register,
       handleNavigateToRegisterPage,
     )
 
     window.addEventListener(
-      events.models.valves.navigate.to.detail,
+      events.models.manometers.navigate.to.detail,
       handleNavigateToDetailPage,
     )
 
     window.addEventListener(
-      events.models.valves.navigate.to.update,
+      events.models.manometers.navigate.to.update,
       handleNavigateToUpdatePage,
     )
 
     window.addEventListener(
-      events.models.valves.navigate.to.preview,
+      events.models.manometers.navigate.to.preview,
       handleNavigateToPreviewPage,
     )
 
-    window.addEventListener(events.models.valves.delete, handleDeleteSchedule)
+    window.addEventListener(
+      events.models.manometers.delete,
+      handleDeleteManometer,
+    )
 
     return () => {
       window.removeEventListener(
-        events.models.valves.navigate.to.register,
+        events.models.manometers.navigate.to.register,
         handleNavigateToRegisterPage,
       )
 
       window.removeEventListener(
-        events.models.valves.navigate.to.detail,
+        events.models.manometers.navigate.to.detail,
         handleNavigateToDetailPage,
       )
 
       window.removeEventListener(
-        events.models.valves.navigate.to.update,
+        events.models.manometers.navigate.to.update,
         handleNavigateToUpdatePage,
       )
 
       window.removeEventListener(
-        events.models.valves.delete,
-        handleDeleteSchedule,
+        events.models.manometers.delete,
+        handleDeleteManometer,
       )
 
       window.removeEventListener(
-        events.models.valves.navigate.to.preview,
+        events.models.manometers.navigate.to.preview,
         handleNavigateToPreviewPage,
       )
     }

@@ -77,5 +77,17 @@ export const events = {
         },
       },
     },
+    manometers: {
+      delete: buildEventName('manometer-delete'),
+      generateReport: buildEventName('manometer-generate-report'),
+      navigate: {
+        to: {
+          update: buildEventName('manometer-navigate-to-update'),
+          detail: buildEventName('manometer-navigate-to-detail'),
+          register: buildEventName('manometer-navigate-to-register'),
+          preview: buildEventName('manometer-navigate-to-preview'),
+        },
+      },
+    },
   },
 } as const

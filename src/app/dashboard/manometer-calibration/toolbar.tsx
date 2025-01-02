@@ -29,7 +29,7 @@ export function Toolbar() {
           Pesquisar
         </Button>
         <Button variant="inspetor-blue" asChild>
-          <Link href="/dashboard/valve-calibration/new">
+          <Link href="/dashboard/manometer-calibration/new">
             <CirclePlus className="size-4" />
             Cadastrar
           </Link>

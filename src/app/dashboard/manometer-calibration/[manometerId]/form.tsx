@@ -4,7 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Client } from '@inspetor/@types/models/clients'
 import { Instrument } from '@inspetor/@types/models/instruments'
 import { Combobox } from '@inspetor/components/combobox'
+import { DocumentField } from '@inspetor/components/document-field'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
+import { TableTests, TableTestsRef } from '@inspetor/components/table-tests'
 import { Button } from '@inspetor/components/ui/button'
 import {
   Form,
@@ -24,13 +26,12 @@ import {
   SelectValue,
 } from '@inspetor/components/ui/select'
 import { Separator } from '@inspetor/components/ui/separator'
-import { Switch } from '@inspetor/components/ui/switch'
 import { Textarea } from '@inspetor/components/ui/textarea'
 import { appConfigs } from '@inspetor/constants/configs'
 import { firebaseModels } from '@inspetor/constants/firebase-models'
 import { units } from '@inspetor/constants/units'
 import { toast } from '@inspetor/hooks/use-toast'
-import { getValve } from '@inspetor/http/firebase/valve/get-valve'
+import { getManometer } from '@inspetor/http/firebase/manometer/get-manometer'
 import { firestore } from '@inspetor/lib/firebase/client'
 import { SentryReactQueryCatcher } from '@inspetor/lib/sentry/react-query/catcher'
 import { generateSubstrings } from '@inspetor/utils/generate-substrings'
@@ -50,7 +51,7 @@ import {
 import { Loader2 } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { Fragment, useMemo } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useProgress } from 'react-transition-progress'
 import { z } from 'zod'
@@ -58,6 +59,12 @@ import { z } from 'zod'
 import { FormGroup } from '../components/form-group'
 
 const schema = z.object({
+  observations: z
+    .string({
+      required_error: 'O campo de observações é obrigatório o preenchimento',
+    })
+    .optional()
+    .default(''),
   certificateNumber: z.string({
     required_error: 'Preencha o número do certificado',
   }),
@@ -75,16 +82,22 @@ const schema = z.object({
         'O campo de número serial da válvula é obrigatório o preenchimento',
     })
     .max(50),
-  nominalGauge: z.string({
-    required_error: 'O campo de bitola nominal é obrigatório o preenchimento',
-  }),
   manufacturer: z
     .string({
       required_error: 'O campo de fabricante é obrigatório o preenchimento',
     })
     .max(100),
-  operation: z.string({
-    required_error: 'O campo de operação é obrigatório o preenchimento',
+  class: z.string({
+    required_error: 'O campo de classe é obrigatório o preenchimento',
+  }),
+
+  scale: z.string({
+    required_error: 'O campo de escala é obrigatório o preenchimento',
+  }),
+
+  dialDiameter: z.string({
+    required_error:
+      'O campo de diâmetro do mostrador é obrigatório o preenchimento',
   }),
 
   type: z.string().default('CONVENCIONAL'),
@@ -94,73 +107,48 @@ const schema = z.object({
     })
     .max(24),
 
-  lever: z
-    .boolean({
-      required_error: 'É obrigatório preencher o campo de alavanca',
-    })
-    .optional()
-    .default(false),
-  workingFluid: z.string({
-    required_error:
-      'O campo de fluído de trabalho é obrigatório o preenchimento',
-  }),
-  workingRange: z.string({
-    required_error:
-      'O campo de faixa de trabalho é obrigatório o preenchimento',
-  }),
-
   instrument: z.string({
     required_error: 'É obrigatório escolher o instrumento',
   }),
 
-  temperatureParameter: z.string({
-    required_error: 'O campo de temperatura é obrigatório o preenchimento',
-  }),
-  openingPressureParameter: z.string({
-    required_error:
-      'O campo de pressão de abertura é obrigatório o preenchimento',
-  }),
-  closingPressureParameter: z.string({
-    required_error:
-      'O campo de pressão de fechamento é obrigatório o preenchimento',
-  }),
+  tableTests: z.array(
+    z.object({
+      rowId: z.string(),
+      standardValue: z.string(),
+      cycleOneAscending: z.string(),
+      cycleOneDescending: z.string(),
+      cycleTwoAscending: z.string(),
+      cycleTwoDescending: z.string(),
+    }),
+  ),
 
-  openingPressureTest: z
-    .string({
-      required_error:
-        'O campo de pressão de abertura de teste é obrigatório o preenchimento',
-    })
-    .optional(),
-  allowablePressure: z
-    .string({
-      required_error:
-        'O campo de pressão admissível é obrigatório o preenchimento',
-    })
-    .optional(),
+  documents: z.array(
+    z.object({
+      name: z.string().nonempty("O campo 'name' não pode estar vazio."),
+      downloadUrl: z.string().nonempty("O campo 'url' não pode estar vazio."),
+      type: z.string().nonempty("O campo 'type' não pode estar vazio."),
 
-  p1: z.string({
-    required_error: 'O campo P1 é obrigatório o preenchimento',
-  }),
-  p2: z.string({
-    required_error: 'O campo P2 é obrigatório o preenchimento',
-  }),
-  p3: z.string({
-    required_error: 'O campo P3 é obrigatório o preenchimento',
-  }),
+      size: z.number(),
 
-  testDescription: z.string({
-    required_error:
-      'É obrigatório que você descreva o procedimento do teste realizado',
-  }),
-  test1: z.string({
-    required_error: 'É obrigatório dizer se o teste 01 passou',
-  }),
-  test2: z.string({
-    required_error: 'É obrigatório dizer se o teste 02 passou',
-  }),
-  test3: z.string({
-    required_error: 'É obrigatório dizer se o teste 03 passou',
-  }),
+      createdAt: z.number().refine((val) => !isNaN(val), {
+        message: "O campo 'createdAt' deve ser um número válido.",
+      }),
+      createdBy: z
+        .string()
+        .nonempty("O campo 'createdBy' não pode estar vazio."),
+      updatedAt: z.number().refine((val) => !isNaN(val), {
+        message: "O campo 'updatedAt' deve ser um número válido.",
+      }),
+      updatedBy: z
+        .string()
+        .nonempty("O campo 'updatedBy' não pode estar vazio."),
+
+      id: z.string().nonempty("O campo 'id' não pode estar vazio."),
+      companyOfUser: z
+        .string()
+        .nonempty("O campo 'companyOfUser' não pode estar vazio."),
+    }),
+  ),
 
   calibrationDate: z.number({
     required_error:
@@ -178,90 +166,72 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>
 
-const defaultValveType = 'CONVENCIONAL'
-
-type ValveCalibrationFormProps = {
+type ManometerCalibrationFormProps = {
   isDetail?: boolean
 }
 
-export function ValveCalibrationForm({
+export function ManometerCalibrationForm({
   isDetail = false,
-}: ValveCalibrationFormProps) {
+}: ManometerCalibrationFormProps) {
+  const tableTestsRef = useRef<TableTestsRef | null>(null)
+  const [tableResetState, setTableResetState] = useState(false)
+
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
     disabled: isDetail,
   })
 
-  const { valveId } = useParams<{ valveId: string }>()
+  const { manometerId } = useParams<{ manometerId: string }>()
 
-  const { isPending: isLoadingValve } = useQuery({
-    queryKey: ['valves', valveId],
+  const { isPending: isLoadingManometer } = useQuery({
+    queryKey: ['manometers', manometerId],
     throwOnError: SentryReactQueryCatcher,
     queryFn: async () => {
-      const valve = await getValve(valveId)
+      const manometer = await getManometer(manometerId)
 
-      if (!valve) {
+      if (!manometer) {
         toast({
-          title: 'Válvula não encontrado!',
+          title: 'Manômetro não encontrado!',
           variant: 'destructive',
         })
 
         startProgressBar()
-        router.push('/dashboard/valve-calibration')
+        router.push('/dashboard/manometer-calibration')
         return null
       }
 
       form.reset({
-        hirer: `${valve.hirer.id}|${valve.hirer.name}|${valve.hirer.cnpjOrCpf}`,
-        instrument: `${valve.instrument.id}|${valve.instrument.serialNumber}`,
-        certificateNumber: valve.certificateNumber,
-        seal: valve.seal,
-        serialNumber: valve.serialNumber,
-        nominalGauge: valve.nominalGauge,
-        manufacturer: valve.manufacturer,
-        operation: valve.operation,
-        type: valve.type,
-        tag: valve.tag,
-        lever: valve.lever,
-        workingFluid: valve.workingFluid,
-        workingRange: valve.workingRange,
-        temperatureParameter: valve.temperatureParameter,
-        openingPressureParameter: valve.openingPressureParameter,
-        closingPressureParameter: valve.closingPressureParameter,
-        openingPressureTest: valve.openingPressureParameter,
-        allowablePressure: valve.allowablePressure,
-        p1: valve.p1,
-        p2: valve.p2,
-        p3: valve.p3,
-        testDescription: valve.testDescription,
-        test1: valve.test1,
-        test2: valve.test2,
-        test3: valve.test3,
-        calibrationDate: valve.calibrationDate,
-        nextCalibrationDate: valve.nextCalibrationDate,
-        status: valve.status,
+        hirer: `${manometer.hirer.id}|${manometer.hirer.name}|${manometer.hirer.cnpjOrCpf}`,
+        instrument: `${manometer.instrument.id}|${manometer.instrument.serialNumber}`,
+        certificateNumber: manometer.certificateNumber,
+        seal: manometer.seal,
+        serialNumber: manometer.serialNumber,
+        manufacturer: manometer.manufacturer,
+        dialDiameter: manometer.dialDiameter,
+        class: manometer.class,
+        scale: manometer.scale,
+        observations: manometer.observations,
+        documents: manometer.documents,
+        tableTests: manometer.tableTests,
+        type: manometer.type,
+        tag: manometer.tag,
+        calibrationDate: manometer.calibrationDate,
+        nextCalibrationDate: manometer.nextCalibrationDate,
+        status: manometer.status,
       })
-      return valve
+
+      tableTestsRef.current?.reset()
+      setTableResetState((prev) => !prev)
+      return manometer
     },
   })
-
-  const openingPressure = form.watch('openingPressureParameter')
-  const allowablePressure = useMemo(() => {
-    const openingPressureNumber = eval(openingPressure || '0')
-    const allowedInterval = openingPressureNumber * 0.03 // 3% of opening pressure
-
-    const min = openingPressureNumber - allowedInterval
-    const max = openingPressureNumber + allowedInterval
-
-    return `${min.toFixed(2)} à ${max.toFixed(2)}`
-  }, [openingPressure])
 
   const session = useSession()
   const startProgressBar = useProgress()
   const router = useRouter()
 
   const mustBeDisabled =
-    form.formState.isSubmitting || isDetail || isLoadingValve
+    form.formState.isSubmitting || isDetail || isLoadingManometer
 
   function handleGoBack() {
     startProgressBar()
@@ -270,7 +240,7 @@ export function ValveCalibrationForm({
 
   function handleLoadEditAction() {
     startProgressBar()
-    router.push(`/dashboard/valve-calibration/${valveId}`)
+    router.push(`/dashboard/manometer-calibration/${manometerId}`)
   }
 
   async function getClients(params: any) {
@@ -338,30 +308,21 @@ export function ValveCalibrationForm({
   async function handleRegisterClient({
     calibrationDate,
     certificateNumber,
-    closingPressureParameter,
     hirer,
     instrument,
-    lever,
     manufacturer,
     nextCalibrationDate,
-    nominalGauge,
-    operation,
-    openingPressureParameter,
-    p1,
-    p2,
-    p3,
     seal,
     serialNumber,
     status,
     tag,
-    test1,
-    test2,
-    test3,
-    testDescription,
+    observations,
+    class: manometerClass,
+    dialDiameter,
+    documents,
+    scale,
+    tableTests,
     type,
-    workingFluid,
-    workingRange,
-    temperatureParameter,
   }: Schema) {
     try {
       const [hirerId, hirerName, hirerCnpjOrCpf] = hirer.split('|')
@@ -370,13 +331,12 @@ export function ValveCalibrationForm({
       const certificateNumberAndManufactory = `${certificateNumber}${hirerName}`
       const substrings = generateSubstrings(certificateNumberAndManufactory)
 
-      const coll = collection(firestore, firebaseModels.valves)
-      const docRef = doc(coll, valveId)
+      const coll = collection(firestore, firebaseModels.manometers)
+      const docRef = doc(coll, manometerId)
 
       await updateDoc(docRef, {
         calibrationDate,
         certificateNumber,
-        closingPressureParameter,
         hirer: {
           id: hirerId,
           name: hirerName,
@@ -386,49 +346,46 @@ export function ValveCalibrationForm({
           id: instrumentId,
           serialNumber: instrumentSerialNumber,
         },
-        lever,
+        observations,
         manufacturer,
         nextCalibrationDate,
-        nominalGauge,
-        operation,
-        openingPressureParameter,
-        p1,
-        p2,
-        p3,
         seal,
         serialNumber,
         status,
         tag,
-        test1,
-        test2,
-        test3,
-        testDescription,
+        class: manometerClass,
+        dialDiameter,
+        documents,
+        scale,
+        tableTests,
         type,
-        workingFluid,
-        workingRange,
-        temperatureParameter,
-        allowablePressure,
         [appConfigs.firestore.searchProperty]: Array.from(substrings),
         updatedBy: session.data?.user?.id ?? appConfigs.defaultUsername,
         updatedAt: Date.now(),
       })
 
       toast({
-        title: 'Válvula adicionado com sucesso!',
+        title: 'Manômetro atualizado com sucesso!',
         variant: 'success',
       })
 
       startProgressBar()
-      router.push(`/dashboard/valve-calibration`)
+      router.push(`/dashboard/manometer-calibration`)
     } catch (error) {
       console.log(error)
       toast({
-        title: 'Falha ao adicionar válvula!',
+        title: 'Falha ao adicionar manômetro!',
         description: 'Tente novamente mais tarde.',
         variant: 'destructive',
       })
     }
   }
+
+  useEffect(() => {
+    if (tableTestsRef.current) {
+      tableTestsRef.current.reset()
+    }
+  }, [isLoadingManometer, tableTestsRef, tableResetState])
 
   return (
     <Form {...form}>
@@ -445,7 +402,7 @@ export function ValveCalibrationForm({
                 <FormItem>
                   <FormLabel>N° do certificado</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={mustBeDisabled} />
+                    <Input {...field} readOnly disabled={mustBeDisabled} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -508,12 +465,24 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="nominalGauge"
+              name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Bitola nominal</FormLabel>
+                  <FormLabel>Tipo</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={mustBeDisabled} />
+                    <Select
+                      {...field}
+                      onValueChange={field.onChange}
+                      disabled={mustBeDisabled}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="analog">Analógico</SelectItem>
+                        <SelectItem value="digital">Digital</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -536,22 +505,23 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="operation"
+              name="class"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Operação</FormLabel>
+                  <FormLabel>Classe</FormLabel>
                   <FormControl>
                     <Select
                       {...field}
-                      disabled={mustBeDisabled}
                       onValueChange={field.onChange}
+                      disabled={mustBeDisabled}
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="security">Segurança</SelectItem>
-                        <SelectItem value="relief">Alívio</SelectItem>
+                        <SelectItem value="a">A</SelectItem>
+                        <SelectItem value="b">B</SelectItem>
+                        <SelectItem value="c">C</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -562,15 +532,15 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="type"
+              name="scale"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tipo</FormLabel>
+                  <FormLabel>Escala</FormLabel>
                   <FormControl>
-                    <Input
+                    <InputWithSuffix
+                      suffix={units.kgfPerCm2}
                       {...field}
                       disabled={mustBeDisabled}
-                      value={defaultValveType}
                     />
                   </FormControl>
                   <FormMessage />
@@ -580,78 +550,10 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="tag"
+              name="dialDiameter"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tag</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={mustBeDisabled} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Fragment>
-        </FormGroup>
-
-        <FormGroup title="Dados Mecânicos - Válvula de Segurança / Alívio">
-          <Fragment>
-            <FormField
-              control={form.control}
-              name="lever"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Alavanca</FormLabel>
-                  <FormControl>
-                    <div className="flex items-center space-x-2 mt-2">
-                      <Switch
-                        checked={field.value || false}
-                        onCheckedChange={field.onChange}
-                        disabled={mustBeDisabled}
-                      />
-
-                      <span>{field.value ? 'Sim' : 'Não'}</span>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="workingFluid"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Fluído de trabalho</FormLabel>
-                  <FormControl>
-                    <Select
-                      {...field}
-                      onValueChange={field.onChange}
-                      disabled={mustBeDisabled}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="water">Água</SelectItem>
-                        <SelectItem value="steam">Vapor</SelectItem>
-                        <SelectItem value="ammonia">Amônia</SelectItem>
-                        <SelectItem value="others">Outros</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="workingRange"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Faixa de trabalho</FormLabel>
+                  <FormLabel>Diâmetro do mostrador</FormLabel>
                   <FormControl>
                     <InputWithSuffix
                       suffix={units.kgfPerCm2}
@@ -690,167 +592,17 @@ export function ValveCalibrationForm({
           />
         </FormGroup>
 
-        <FormGroup title="Parâmetros de calibração">
+        <FormGroup
+          className="flex !flex-col-reverse"
+          title="Parâmetros de calibração"
+        >
           <Fragment>
             <FormField
               control={form.control}
-              name="temperatureParameter"
+              name="observations"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Temperatura</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.celsius}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="openingPressureParameter"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pressão de abertura</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="closingPressureParameter"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pressão de fechamento</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Fragment>
-        </FormGroup>
-
-        <FormGroup title="Teste de Aferição">
-          <Fragment>
-            <FormField
-              control={form.control}
-              name="openingPressureParameter"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pressão de abertura</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="allowablePressure"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pressão de Admissível</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      value={
-                        allowablePressure.includes('0.00 à 0.00')
-                          ? field.value
-                          : allowablePressure
-                      }
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="p1"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>P1</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="p2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>P2</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="p3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>P3</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix
-                      suffix={units.kgfPerCm2}
-                      {...field}
-                      disabled={mustBeDisabled}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Fragment>
-        </FormGroup>
-
-        <FormGroup gridCols={4} title="Teste de estanqueidade">
-          <Fragment>
-            <FormField
-              control={form.control}
-              name="testDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Teste realizado</FormLabel>
+                  <FormLabel>Observações</FormLabel>
                   <FormControl>
                     <Textarea {...field} disabled={mustBeDisabled} />
                   </FormControl>
@@ -861,24 +613,19 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="test1"
+              name="documents"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Teste 01</FormLabel>
+                  <FormLabel>Foto dos testes</FormLabel>
                   <FormControl>
-                    <Select
-                      {...field}
-                      onValueChange={field.onChange}
+                    <DocumentField
+                      baseFolderToUpload="manometers"
+                      accept="image/*"
+                      placeholder="Selecione um documento"
+                      onChange={field.onChange}
+                      value={field.value}
                       disabled={mustBeDisabled}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="approved">Aprovado</SelectItem>
-                        <SelectItem value="disapproved">Reprovado</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -887,50 +634,17 @@ export function ValveCalibrationForm({
 
             <FormField
               control={form.control}
-              name="test2"
+              name="tableTests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Teste 02</FormLabel>
                   <FormControl>
-                    <Select
-                      {...field}
-                      onValueChange={field.onChange}
+                    <TableTests
+                      value={field.value}
+                      onChange={field.onChange}
                       disabled={mustBeDisabled}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="approved">Aprovado</SelectItem>
-                        <SelectItem value="disapproved">Reprovado</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="test3"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Teste 03</FormLabel>
-                  <FormControl>
-                    <Select
-                      {...field}
-                      onValueChange={field.onChange}
-                      disabled={mustBeDisabled}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="approved">Aprovado</SelectItem>
-                        <SelectItem value="disapproved">Reprovado</SelectItem>
-                      </SelectContent>
-                    </Select>
+                      isLoading={isLoadingManometer || !!field.value}
+                      ref={tableTestsRef}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

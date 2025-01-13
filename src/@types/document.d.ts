@@ -15,6 +15,8 @@ export type Document = {
     zoom: number
   }
 
+  legend?: string
+
   createdAt: number
   updatedAt: number
   createdBy: string

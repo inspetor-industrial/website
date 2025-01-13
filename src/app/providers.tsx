@@ -1,5 +1,6 @@
 'use client'
 
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { SidebarProvider } from '@inspetor/components/ui/sidebar'
 import { appConfigs } from '@inspetor/constants/configs'
 import { queryClient } from '@inspetor/lib/query'
@@ -39,7 +40,9 @@ export function Providers({ children }: ProvidersProps) {
       <SidebarProvider>
         <NuqsAdapter>
           <QueryClientProvider client={queryClient}>
-            <JotaiProvider>{children}</JotaiProvider>
+            <JotaiProvider>
+              <AntdRegistry>{children}</AntdRegistry>
+            </JotaiProvider>
           </QueryClientProvider>
         </NuqsAdapter>
       </SidebarProvider>

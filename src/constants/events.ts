@@ -89,5 +89,17 @@ export const events = {
         },
       },
     },
+    boilerInspection: {
+      delete: buildEventName('boiler-inspection-delete'),
+      generateReport: buildEventName('boiler-inspection-generate-report'),
+      navigate: {
+        to: {
+          update: buildEventName('boiler-inspection-navigate-to-update'),
+          detail: buildEventName('boiler-inspection-navigate-to-detail'),
+          register: buildEventName('boiler-inspection-navigate-to-register'),
+          preview: buildEventName('boiler-inspection-navigate-to-preview'),
+        },
+      },
+    },
   },
 } as const

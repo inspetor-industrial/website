@@ -8,5 +8,6 @@ export const firebaseModels = {
   documents: 'documents',
   valves: 'valves',
   manometers: 'manometers',
+  boilerInspection: 'boiler-inspection',
   reports: 'reports',
 } as const

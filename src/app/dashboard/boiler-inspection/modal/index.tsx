@@ -9,6 +9,7 @@ import { Button } from '@inspetor/components/ui/button'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -159,6 +160,7 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
       >
         <DialogHeader>
           <DialogTitle className="text-white">{formTitle}</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
 
         <ScrollArea className="h-96 min-h-96 w-full">

@@ -42,14 +42,17 @@ export type BoilerTubeMaterial = 'astmA178' | 'notSpecified'
 export type InjectorFuelType = 'liquid' | 'gaseous' | 'solid'
 
 export type BoilerNrToAdd = {
-  string: string
-  subItem: Omit<BoilerNrToAdd, 'subItem'>[]
-  isSelected: boolean
+  parent: string
+  parentSelected: boolean
+  children: {
+    selected: boolean
+    text: string
+  }[]
 }
 
 export type Question = {
   question: string
-  answer: boolean
+  answer: string
 }
 
 export type BoilerTableTests = {
@@ -141,6 +144,7 @@ export type BoilerInspection = {
     heatingSurface: string
     furnace: {
       type: FurnaceType
+      infos: string
       dimensions: Partial<FurnaceDimensions>
     }
 

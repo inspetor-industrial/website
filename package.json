@@ -67,11 +67,13 @@
     "react-transition-progress": "^0.0.4",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.5",
     "zod": "^3.24.1",
     "zsa": "^0.6.0",
     "zsa-react": "^0.2.3"
   },
   "devDependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/lodash": "^4.17.13",
     "@types/node": "^20.17.10",

@@ -25,6 +25,7 @@ import { inputVariants } from './ui/input'
 type InputProps = ComponentProps<'input'>
 type DocumentFieldProps = Omit<InputProps, 'onChange' | 'value'> & {
   baseFolderToUpload?: string
+  isOnModal?: boolean
   onChange?: (data: Document[]) => void
   value?: Document[]
   max?: number
@@ -35,6 +36,7 @@ export function DocumentField({
   placeholder,
   onChange,
   value: documents = [],
+  isOnModal = false,
   baseFolderToUpload = 'inspetor-base-folder',
   max: MAX_OF_FILES = 2,
   ...props
@@ -265,7 +267,7 @@ export function DocumentField({
         return (
           <div
             key={document.id}
-            className="flex items-center justify-between mt-4"
+            className={`flex items-center justify-between mt-4 ${isOnModal ? 'text-white' : ''}`}
           >
             <div className="flex items-center gap-2">
               <File className="size-4" />

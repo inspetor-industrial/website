@@ -247,7 +247,7 @@ export function DocumentField({
         htmlFor={fieldId}
         className={cn(
           inputVariants({ variant: 'default' }),
-          'read-only:cursor-pointer read-only:!opacity-100 flex items-center text-gray-600',
+          'read-only:cursor-pointer read-only:!opacity-100 flex items-center text-gray-600 truncate',
           props.disabled &&
             '!cursor-not-allowed !bg-opacity-50 !border-transparent',
         )}

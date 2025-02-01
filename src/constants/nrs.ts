@@ -143,3 +143,228 @@ export const examsNrs = [
     ],
   },
 ]
+
+export const externalExamsNrs = [
+  {
+    parent:
+      '13.4.1.3 Toda caldeira deve ter afixada em seu corpo, em local de fácil acesso e visível, placa de identificação indelével com, no mínimo, as seguintes informações:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) nome do fabricante;',
+      },
+      {
+        selected: false,
+        text: 'b) número de ordem dado pelo fabricante da caldeira;',
+      },
+      {
+        selected: false,
+        text: 'c) ano de fabricação;',
+      },
+      {
+        selected: false,
+        text: 'd) pressão máxima de trabalho admissível; ',
+      },
+      {
+        selected: false,
+        text: 'e) capacidade de produção de vapor;',
+      },
+      {
+        selected: false,
+        text: 'f) área de superfície de aquecimento; e',
+      },
+      {
+        selected: false,
+        text: 'g) código de construção e ano de edição. ',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.4.1.4 Além da placa de identificação, deve constar, em local visível, a categoria da caldeira e seu número ou código de identificação.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.4.13 Sempre que os resultados da inspeção determinarem alterações dos dados de projeto, a placa de identificação e a documentação do prontuário devem ser atualizadas.',
+    parentSelected: false,
+    children: [],
+  },
+]
+
+export const internalExamsNrs = [
+  {
+    parent:
+      '13.3.7.5 Todas as intervenções que exijam mandrilamento ou soldagem em partes que operem sob pressão devem ser objeto de exames ou testes para controle da qualidade com parâmetros definidos por PLH, de acordo com códigos ou normas aplicáveis.',
+    parentSelected: false,
+    children: [],
+  },
+]
+
+export const nrsLocalInstallationBoiler = [
+  {
+    parent:
+      '13.4.2.1 A autoria do projeto de instalação de caldeiras é de responsabilidade de PLH, e deve obedecer aos aspectos de segurança, saúde e meio ambiente previstos nas normas regulamentadoras, convenções e disposições legais aplicáveis.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.2.2 As caldeiras de qualquer estabelecimento devem ser instaladas em local específico para tal fim, denominado casa de caldeiras ou área de caldeiras.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.2.3 Quando a caldeira for instalada em ambiente aberto, a área de caldeiras deve satisfazer os seguintes requisitos:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) estar afastada, no mínimo, três metros de outras instalações do estabelecimento, dos depósitos de combustíveis, excetuando-se reservatórios para partida com até dois mil litros de capacidade, do limite de propriedade de terceiros e do limite com as vias públicas;',
+      },
+      {
+        selected: false,
+        text: '',
+      },
+      {
+        selected: false,
+        text: 'b) dispor de pelo menos duas saídas amplas, permanentemente desobstruídas, sinalizadas e dispostas em direções distintas;',
+      },
+      {
+        selected: false,
+        text: 'c) dispor de acesso fácil e seguro, necessário à operação e à manutenção da caldeira, sendo que, para guarda-corpos vazados, os vãos devem ter dimensões que impeçam a queda de pessoas;',
+      },
+      {
+        selected: false,
+        text: 'd) ter sistema de captação e lançamento dos gases e material particulado, provenientes da combustão, para fora da área de operação, atendendo às normas ambientais vigentes;',
+      },
+      {
+        selected: false,
+        text: 'e) dispor de iluminação conforme normas oficiais vigentes; e',
+      },
+      {
+        selected: false,
+        text: 'f) ter sistema de iluminação de emergência caso opere à noite.',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.4.2.4 Quando a caldeira estiver instalada em ambiente fechado, a casa de caldeiras deve satisfazer os seguintes requisitos:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) constituir prédio separado, construído de material resistente ao fogo, podendo ter apenas uma parede adjacente a outras instalações do estabelecimento, porém com as outras paredes afastadas de, no mínimo, três metros de outras instalações, do limite de propriedade de terceiros, do limite com as vias públicas e de depósitos de combustíveis, excetuando-se reservatórios para partida com até dois mil litros de capacidade;',
+      },
+      {
+        selected: false,
+        text: 'b) dispor de pelo menos duas saídas amplas, permanentemente desobstruídas, sinalizadas e dispostas em direções distintas;',
+      },
+      {
+        selected: false,
+        text: 'c) dispor de ventilação permanente com entradas de ar que não possam ser bloqueadas;',
+      },
+      {
+        selected: false,
+        text: 'd) dispor de sensor para detecção de vazamento de gás, quando se tratar de caldeira a combustível gasoso;',
+      },
+      {
+        selected: false,
+        text: 'e) não ser utilizada para qualquer outra finalidade; ',
+      },
+      {
+        selected: false,
+        text: 'f) dispor de acesso fácil e seguro, necessário à operação e à manutenção da caldeira, sendo que, para guarda-corpos vazados, os vãos devem ter dimensões que impeçam a queda de pessoas;',
+      },
+      {
+        selected: false,
+        text: 'g) ter sistema de captação e lançamento dos gases e material particulado, provenientes da combustão, para fora da área de operação, atendendo às normas ambientais vigentes;',
+      },
+      {
+        selected: false,
+        text: 'h) dispor de iluminação conforme normas oficiais vigentes e ter sistema de iluminação de emergência',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.4.2.5 Quando o estabelecimento não puder atender ao disposto nos subitens 13.4.2.3 e 13.4.2.4, deve ser elaborado projeto alternativo de instalação, com medidas complementares de segurança que permitam a atenuação dos riscos, comunicando previamente à representação sindical da categoria profissional predominante do estabelecimento.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.2.6 As caldeiras classificadas na categoria A devem possuir painel de instrumentos instalados em sala de controle, construída segundo o que estabelecem as normas regulamentadoras aplicáveis.',
+    parentSelected: false,
+    children: [],
+  },
+]
+
+export const nrsForSecurityMeasurement = [
+  {
+    parent: '13.4.1.2 As caldeiras devem ser dotadas dos seguintes itens:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'b) instrumento que indique a pressão do vapor acumulado;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'c) ausência ou bloqueio de dispositivos de segurança, sem a devida justificativa técnica, baseada em códigos, normas ou procedimentos formais de operação do equipamento;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]

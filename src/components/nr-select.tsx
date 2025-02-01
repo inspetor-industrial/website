@@ -47,7 +47,7 @@ export function NrSelect({ nrs, onSelectNr }: NrSelectProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="space-y-3 max-h-[400px] hover:bg-transparent">
+        <ScrollArea className="space-y-3 max-h-[400px] hover:bg-transparent pb-10">
           {nrs?.map((nr, indexOfNr) => {
             return (
               <NrOption

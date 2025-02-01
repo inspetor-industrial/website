@@ -16,18 +16,18 @@ import { z } from 'zod'
 
 const schema = z.object({
   observations: z.string().optional().default(''),
-  record: documentValidator,
-  book: documentValidator,
+  boilerHouse: documentValidator,
+  extraPhotosBoilerHouse: documentValidator.optional().default([]),
 })
 
 type Schema = z.infer<typeof schema>
 
-type FormElevenProps = {
+type FormSeventeenProps = {
   defaultValues?: Record<string, any>
 }
 
-const FormEleven = forwardRef(function FormEleven(
-  { defaultValues }: FormElevenProps,
+const FormSeventeen = forwardRef(function FormSeventeen(
+  { defaultValues }: FormSeventeenProps,
   ref,
 ) {
   const form = useForm<Schema>({
@@ -41,10 +41,9 @@ const FormEleven = forwardRef(function FormEleven(
       runAutoCompleteAndFormatterWithDefaultValues: (values: Schema) => {
         return {
           ...values,
-          examinationsPerformed: {
-            ...(defaultValues?.examinationsPerformed ?? {}),
-            record: values.record,
-            book: values.book,
+          localInstallationExaminationsPerformed: {
+            ...(defaultValues?.localInstallationExaminationsPerformed ?? {}),
+            boilerHouse: values.boilerHouse,
             observations: values.observations,
           },
         }
@@ -73,14 +72,14 @@ const FormEleven = forwardRef(function FormEleven(
 
         <FormField
           control={form.control}
-          name="record"
+          name="boilerHouse"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do prontuário</FormLabel>
+              <FormLabel>Anexar foto da casa da caldeira</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
-                  baseFolderToUpload="boiler-inspection-record-photo"
+                  baseFolderToUpload="boiler-inspection-boiler-house-photo"
                   accept="image/*"
                   placeholder="Selecione um documento"
                   onChange={field.onChange}
@@ -95,14 +94,14 @@ const FormEleven = forwardRef(function FormEleven(
 
         <FormField
           control={form.control}
-          name="book"
+          name="extraPhotosBoilerHouse"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do prontuário</FormLabel>
+              <FormLabel>Anexar fotos extras</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
-                  baseFolderToUpload="boiler-inspection-book-photo"
+                  baseFolderToUpload="boiler-inspection-extra-boiler-house-photo"
                   accept="image/*"
                   placeholder="Selecione um documento"
                   onChange={field.onChange}
@@ -119,4 +118,4 @@ const FormEleven = forwardRef(function FormEleven(
   )
 })
 
-export { FormEleven }
+export { FormSeventeen }

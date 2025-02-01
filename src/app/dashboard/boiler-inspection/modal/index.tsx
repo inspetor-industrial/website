@@ -86,7 +86,7 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
     if (!isFormValid) {
       console.log(
         'formRef.current.form.formState',
-        formRef.current.form.formState.dirtyFields,
+        formRef.current.form.formState.errors,
       )
       toast({
         title: 'Erro',

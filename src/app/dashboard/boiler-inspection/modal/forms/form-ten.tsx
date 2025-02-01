@@ -92,7 +92,6 @@ const FormTen = forwardRef(function FormTen(
     const reformedOption = 'A CALDEIRA É MODIFICADO / REFORMADA?'
     const changesProjectOption = 'HÁ PROJETO DE ALTERAÇÃO E REPARO?'
 
-    console.log('reformedOption', currentOption)
     if (currentOption.question === reformedOption) {
       if (currentOption.answer === 'no') {
         auxOptions = options.filter((o) => o.question !== changesProjectOption)
@@ -120,6 +119,7 @@ const FormTen = forwardRef(function FormTen(
         return {
           ...values,
           examinationsPerformed: {
+            ...(defaultValues?.examinationsPerformed ?? {}),
             tests: {
               questions: values.tests,
               nrsToAdd: values.nrs,

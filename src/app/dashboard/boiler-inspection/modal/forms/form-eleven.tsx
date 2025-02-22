@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  observations: z.string().optional().default(''),
+  observationsExamPerformed: z.string().optional().default(''),
   record: documentValidator,
   book: documentValidator,
 })
@@ -45,7 +45,7 @@ const FormEleven = forwardRef(function FormEleven(
             ...(defaultValues?.examinationsPerformed ?? {}),
             record: values.record,
             book: values.book,
-            observations: values.observations,
+            observations: values.observationsExamPerformed,
           },
         }
       },
@@ -58,7 +58,7 @@ const FormEleven = forwardRef(function FormEleven(
       <form className="space-y-2.5 max-w-[462px]">
         <FormField
           control={form.control}
-          name="observations"
+          name="observationsExamPerformed"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Observações</FormLabel>

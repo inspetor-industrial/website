@@ -15,9 +15,9 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  observations: z.string().optional().default(''),
+  observationsInternalExams: z.string().optional().default(''),
   tubes: documentValidator,
-  furnace: documentValidator,
+  furnaceInternalExaminations: documentValidator,
   internalBoiler: documentValidator.optional().default([]),
   extraInternalBoilerPhotos: documentValidator.optional().default([]),
 })
@@ -46,10 +46,10 @@ const FormFifteen = forwardRef(function FormFifteen(
           internalExaminationsPerformed: {
             ...(defaultValues?.internalExaminationsPerformed ?? {}),
             tubes: values.tubes,
-            furnace: values.furnace,
+            furnaceInternalExaminations: values.furnaceInternalExaminations,
             internalBoiler: values.internalBoiler,
             extraPhotos: values.extraInternalBoilerPhotos,
-            observations: values.observations,
+            observations: values.observationsInternalExams,
           },
         }
       },
@@ -62,7 +62,7 @@ const FormFifteen = forwardRef(function FormFifteen(
       <form className="space-y-2.5 max-w-[462px]">
         <FormField
           control={form.control}
-          name="observations"
+          name="observationsInternalExams"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Observações</FormLabel>
@@ -99,7 +99,7 @@ const FormFifteen = forwardRef(function FormFifteen(
 
         <FormField
           control={form.control}
-          name="furnace"
+          name="furnaceInternalExaminations"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Anexar foto da fornalha</FormLabel>

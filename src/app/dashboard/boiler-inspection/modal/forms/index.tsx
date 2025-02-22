@@ -16,6 +16,8 @@ import { FormTen } from './form-ten'
 import { FormThirteen } from './form-thirteen'
 import { FormThree } from './form-three'
 import { FormTwelve } from './form-twelve'
+import { FormTwenty } from './form-twenty'
+import { FormTwentyOne } from './form-twenty-one'
 import { FormTwo } from './form-two'
 
 export const forms = [
@@ -94,5 +96,13 @@ export const forms = [
   {
     Form: FormNineteen,
     formTitle: 'Aferições do manômetro',
+  },
+  {
+    Form: FormTwenty,
+    formTitle: 'Aferições do injetor',
+  },
+  {
+    Form: FormTwentyOne,
+    formTitle: 'Aferições do injetor',
   },
 ]

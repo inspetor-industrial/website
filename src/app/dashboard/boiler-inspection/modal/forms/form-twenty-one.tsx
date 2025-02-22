@@ -9,39 +9,42 @@ import {
   FormLabel,
 } from '@inspetor/components/ui/form'
 import { Textarea } from '@inspetor/components/ui/textarea'
-import { nrsForSecurityMeasurement } from '@inspetor/constants/nrs'
+import { nrsForSecurityMeasurementContinuation } from '@inspetor/constants/nrs'
 import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  pressureGaugeCalibrationTests: z.array(
+  injectorTests: z.array(
     z.object({
       question: z.string(),
       answer: z.string(),
     }),
   ),
-  pressureGaugeCalibrationNrs: nrValidator,
-  observationsPressureGauge: z.string().optional().default(''),
+  injectorNrs: nrValidator,
+  observationsInjector: z.string().optional().default(''),
 })
 
 type Schema = z.infer<typeof schema>
 
-type FormNineteenProps = {
+type FormTwentyOneProps = {
   defaultValues?: Record<string, any>
 }
 
-export const measurementSecurityQuestions = [
-  { question: 'O MANÔMETRO FOI CALIBRADO?', answer: '' },
+export const securityMeasurementContinuation = [
+  { question: 'O INJETOR DE VALOR FOI AFERIDO?', answer: '' },
   { question: 'FUNCIONA NORMALMENTE?', answer: '' },
   { question: 'HÁ ALGUM PROBLEMA NO MESMO?', answer: '' },
-  { question: 'HÁ SIFÃO PARA PROTEÇÃO DO MECANISMO INTERNO?', answer: '' },
-  { question: 'O VIDRO ENCONTRA-SE COM VISIBILIDADE ADEQUADA?', answer: '' },
+  {
+    question: 'HÁ SISTEMA DE RETENÇÃO PARA PROTEÇÃO DO MECANISMO INTERNO?',
+    answer: '',
+  },
+  { question: 'A LIGAÇÃO DE ÁGUA FOI FEITA CORRETAMENTE?', answer: '' },
 ]
 
-const FormNineteen = forwardRef(function FormNineteen(
-  { defaultValues }: FormNineteenProps,
+const FormTwentyOne = forwardRef(function FormTwentyOne(
+  { defaultValues }: FormTwentyOneProps,
   ref,
 ) {
   const form = useForm<Schema>({
@@ -55,13 +58,13 @@ const FormNineteen = forwardRef(function FormNineteen(
       runAutoCompleteAndFormatterWithDefaultValues: (values: Schema) => {
         return {
           ...values,
-          pressureGaugeCalibration: {
-            ...(defaultValues?.pressureGaugeCalibration ?? {}),
+          injectorGauge: {
+            ...(defaultValues?.injectorGauge ?? {}),
             tests: {
-              questions: values.pressureGaugeCalibrationTests,
-              nrsToAdd: values.pressureGaugeCalibrationNrs,
+              questions: values.injectorTests,
+              nrsToAdd: values.injectorNrs,
             },
-            observations: values.observationsPressureGauge,
+            observations: values.observationsInjector,
           },
         }
       },
@@ -74,7 +77,7 @@ const FormNineteen = forwardRef(function FormNineteen(
       <form className="space-y-2.5 max-w-[462px]">
         <FormField
           control={form.control}
-          name="pressureGaugeCalibrationNrs"
+          name="injectorNrs"
           render={({ field }) => (
             <FormItem className="flex justify-end">
               <FormControl>
@@ -82,7 +85,7 @@ const FormNineteen = forwardRef(function FormNineteen(
                   onSelectNr={(nrs) => {
                     field.onChange(nrs)
                   }}
-                  nrs={field.value ?? nrsForSecurityMeasurement}
+                  nrs={field.value ?? nrsForSecurityMeasurementContinuation}
                 />
               </FormControl>
             </FormItem>
@@ -91,12 +94,12 @@ const FormNineteen = forwardRef(function FormNineteen(
 
         <FormField
           control={form.control}
-          name="pressureGaugeCalibrationTests"
+          name="injectorTests"
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || measurementSecurityQuestions}
+                  options={field.value || securityMeasurementContinuation}
                   onChange={field.onChange}
                 />
               </FormControl>
@@ -106,7 +109,7 @@ const FormNineteen = forwardRef(function FormNineteen(
 
         <FormField
           control={form.control}
-          name="observationsPressureGauge"
+          name="observationsInjector"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Observações</FormLabel>
@@ -121,4 +124,4 @@ const FormNineteen = forwardRef(function FormNineteen(
   )
 })
 
-export { FormNineteen }
+export { FormTwentyOne }

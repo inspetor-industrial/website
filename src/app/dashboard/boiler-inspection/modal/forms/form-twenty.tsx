@@ -10,6 +10,13 @@ import {
   FormMessage,
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@inspetor/components/ui/select'
 import { units } from '@inspetor/constants/units'
 import { documentValidator } from '@inspetor/utils/zod-validations/document-validator'
 import { forwardRef, useImperativeHandle } from 'react'
@@ -17,21 +24,21 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  calibrationOrderNumber: z.string().optional().default(''),
-  markPressureGauge: z.string().optional().default(''),
-  diameterPressureGauge: z.string().optional().default(''),
-  capacityPressureGauge: z.string().optional().default(''),
-  photosGauge: documentValidator.optional().default([]),
+  serialNumber: z.string().optional().default(''),
+  markInjector: z.string().optional().default(''),
+  diameterInjector: z.string().optional().default(''),
+  fuelInjector: z.string().optional().default(''),
+  injectorPhotos: documentValidator.optional().default([]),
 })
 
 type Schema = z.infer<typeof schema>
 
-type FormEighteenProps = {
+type FormTwentyProps = {
   defaultValues?: Record<string, any>
 }
 
-const FormEighteen = forwardRef(function FormEighteen(
-  { defaultValues }: FormEighteenProps,
+const FormTwenty = forwardRef(function FormTwenty(
+  { defaultValues }: FormTwentyProps,
   ref,
 ) {
   const form = useForm<Schema>({
@@ -45,13 +52,13 @@ const FormEighteen = forwardRef(function FormEighteen(
       runAutoCompleteAndFormatterWithDefaultValues: (values: Schema) => {
         return {
           ...values,
-          pressureGaugeCalibration: {
-            ...(defaultValues?.pressureGaugeCalibration ?? {}),
-            calibrationOrderNumber: values.calibrationOrderNumber,
-            mark: values.markPressureGauge,
-            diameter: values.diameterPressureGauge,
-            capacity: values.capacityPressureGauge,
-            photos: values.photosGauge,
+          injectorGauge: {
+            ...(defaultValues?.injectorGauge ?? {}),
+            serialNumber: values.serialNumber,
+            mark: values.markInjector,
+            diameter: values.diameterInjector,
+            fuel: values.fuelInjector,
+            photos: values.injectorPhotos,
           },
         }
       },
@@ -63,12 +70,12 @@ const FormEighteen = forwardRef(function FormEighteen(
     <Form {...form}>
       <form className="space-y-2.5 max-w-[462px]">
         <FormField
-          name="calibrationOrderNumber"
+          name="serialNumber"
           control={form.control}
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Número de ordem de calibração</FormLabel>
+                <FormLabel>Número de série do injetor</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -78,7 +85,7 @@ const FormEighteen = forwardRef(function FormEighteen(
           }}
         />
         <FormField
-          name="markPressureGauge"
+          name="markInjector"
           control={form.control}
           render={({ field }) => {
             return (
@@ -94,48 +101,56 @@ const FormEighteen = forwardRef(function FormEighteen(
           }}
         />
 
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="diameterPressureGauge"
-            render={({ field }) => (
+        <FormField
+          control={form.control}
+          name="diameterInjector"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Diâmetro</FormLabel>
+              <FormControl>
+                <InputWithSuffix {...field} suffix={units.pol} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="fuelInjector"
+          control={form.control}
+          render={({ field }) => {
+            return (
               <FormItem>
-                <FormLabel>Diâmetro</FormLabel>
+                <FormLabel>Tipo do combustível</FormLabel>
                 <FormControl>
-                  <InputWithSuffix {...field} suffix={units.pol} />
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="liquid">Líquido</SelectItem>
+                      <SelectItem value="gaseous">Gasoso</SelectItem>
+                      <SelectItem value="solid">Sólido</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
-            )}
-          />
-
-          <FormField
-            name="capacityPressureGauge"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Capacidade</FormLabel>
-                  <FormControl>
-                    <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
-        </div>
+            )
+          }}
+        />
 
         <FormField
           control={form.control}
-          name="photosGauge"
+          name="injectorPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do manômetro</FormLabel>
+              <FormLabel>Anexar foto do injetor</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
-                  baseFolderToUpload="boiler-gauge-pressure-photo"
+                  baseFolderToUpload="boiler-injector-photo"
                   accept="image/*"
                   placeholder="Selecione um documento"
                   onChange={field.onChange}
@@ -152,4 +167,4 @@ const FormEighteen = forwardRef(function FormEighteen(
   )
 })
 
-export { FormEighteen }
+export { FormTwenty }

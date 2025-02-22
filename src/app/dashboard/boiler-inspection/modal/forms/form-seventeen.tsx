@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  observations: z.string().optional().default(''),
+  observationsLocalInstallation: z.string().optional().default(''),
   boilerHouse: documentValidator,
   extraPhotosBoilerHouse: documentValidator.optional().default([]),
 })
@@ -44,7 +44,7 @@ const FormSeventeen = forwardRef(function FormSeventeen(
           localInstallationExaminationsPerformed: {
             ...(defaultValues?.localInstallationExaminationsPerformed ?? {}),
             boilerHouse: values.boilerHouse,
-            observations: values.observations,
+            observations: values.observationsLocalInstallation,
           },
         }
       },
@@ -57,7 +57,7 @@ const FormSeventeen = forwardRef(function FormSeventeen(
       <form className="space-y-2.5 max-w-[462px]">
         <FormField
           control={form.control}
-          name="observations"
+          name="observationsLocalInstallation"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Observações</FormLabel>

@@ -11,6 +11,7 @@ const labelVariants = cva(
     variants: {
       variant: {
         default: 'text-gray-800 font-normal text-lg',
+        form: 'font-semibold text-zinc-50 text-base',
       },
     },
     defaultVariants: {

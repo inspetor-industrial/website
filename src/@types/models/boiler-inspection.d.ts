@@ -331,7 +331,7 @@ export type BoilerInspection = {
   conclusions: {
     deadlineForNextInspection: string
 
-    nrItemsThatNotBeingMet: BoilerNrToAdd[]
+    nrItemsThatNotBeingMet: string
     immediateMeasuresNecessary: string
     necessaryRecommendations: string
 

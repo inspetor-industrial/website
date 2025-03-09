@@ -1,0 +1,179 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { DocumentField } from '@inspetor/components/document-field'
+import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@inspetor/components/ui/form'
+import { Input } from '@inspetor/components/ui/input'
+import { units } from '@inspetor/constants/units'
+import { documentValidator } from '@inspetor/utils/zod-validations/document-validator'
+import { forwardRef, useImperativeHandle } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+const schema = z.object({
+  totalBodyExaminationC: z.string().optional().default(''),
+  meanBodyExaminationC: z.string().optional().default(''),
+  thicknessProvidedByManufacturerBodyExaminationC: z
+    .string()
+    .optional()
+    .default(''),
+  corrosionRateBodyExaminationC: z.string().optional().default(''),
+  allowableThicknessBodyExaminationC: z.string().optional().default(''),
+  photosBodyExaminationC: documentValidator,
+})
+
+type Schema = z.infer<typeof schema>
+
+type FormThirtyFourProps = {
+  defaultValues?: Record<string, any>
+}
+
+const FormThirtyFour = forwardRef(function FormThirtyFour(
+  { defaultValues }: FormThirtyFourProps,
+  ref,
+) {
+  const form = useForm<Schema>({
+    resolver: zodResolver(schema),
+    defaultValues,
+  })
+
+  useImperativeHandle(ref, () => {
+    return {
+      getValues: form.getValues,
+      runAutoCompleteAndFormatterWithDefaultValues: (values: Schema) => {
+        return {
+          ...values,
+          ultrasoundTests: {
+            ...(defaultValues?.ultrasoundTests ?? {}),
+            bodyExaminationC: {
+              ...(defaultValues?.ultrasoundTests?.bodyExaminationC ?? {}),
+              total: values.totalBodyExaminationC,
+              mean: values.meanBodyExaminationC,
+              thicknessProvidedByManufacturer:
+                values.thicknessProvidedByManufacturerBodyExaminationC,
+              corrosionRate: values.corrosionRateBodyExaminationC,
+              allowableThickness: values.allowableThicknessBodyExaminationC,
+              photos: values.photosBodyExaminationC,
+            },
+          },
+        }
+      },
+      form,
+    }
+  })
+
+  return (
+    <Form {...form}>
+      <form className="space-y-2.5 max-w-[462px]">
+        <FormField
+          control={form.control}
+          name="totalBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>TOTAL DE MEDIDAS TOMADAS:</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="meanBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>MÉDIA DETERMINADA:</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="thicknessProvidedByManufacturerBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ESPESSURA FORNECIDA PELO FABRICANTE:</FormLabel>
+              <FormControl>
+                <InputWithSuffix {...field} suffix={units.mm} type="number" />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="corrosionRateBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>TAXA DE CORROSÃO:</FormLabel>
+              <FormControl>
+                <InputWithSuffix
+                  {...field}
+                  suffix={units.percentage}
+                  type="number"
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="allowableThicknessBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:</FormLabel>
+              <FormControl>
+                <InputWithSuffix {...field} suffix={units.mm} type="number" />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="photosBodyExaminationC"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Fotos</FormLabel>
+              <FormControl>
+                <DocumentField
+                  isOnModal
+                  baseFolderToUpload="boiler-inspection-ultrasonic-a-photo"
+                  accept="image/*"
+                  placeholder="Selecione um documento"
+                  onChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  )
+})
+
+export { FormThirtyFour }

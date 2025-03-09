@@ -427,3 +427,363 @@ export const nrsForSecurityMeasurementContinuation = [
     ],
   },
 ]
+
+export const nrsForBombsSupply = [
+  {
+    parent: '13.4.1.2 As caldeiras devem ser dotadas dos seguintes itens:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'e) sistema automático de controle do nível de água com intertravamento que evite o superaquecimento por alimentação deficiente.',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'c) ausência ou bloqueio de dispositivos de segurança, sem a devida justificativa técnica, baseada em códigos, normas ou procedimentos formais de operação do equipamento;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]
+
+export const nrsForMeasurementsLevelIndicatorSet = [
+  {
+    parent: '13.4.1.2 As caldeiras devem ser dotadas dos seguintes itens:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'e) sistema automático de controle do nível de água com intertravamento que evite o superaquecimento por alimentação deficiente.',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'c) ausência ou bloqueio de dispositivos de segurança, sem a devida justificativa técnica, baseada em códigos, normas ou procedimentos formais de operação do equipamento;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]
+
+export const nrsForMeasurementContinuationValve = [
+  {
+    parent: '13.4.1.2 As caldeiras devem ser dotadas dos seguintes itens:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) válvula de segurança com pressão de abertura ajustada em valor igual ou inferior à Pressão Máxima de Trabalho Admissível - PMTA, respeitados os requisitos do código de construção relativos a aberturas escalonadas e tolerâncias de pressão de ajuste;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.4.4.7 As válvulas de segurança de caldeiras devem ser desmontadas, inspecionadas e testadas com prazo adequado à sua manutenção, porém, não superior ao previsto para a inspeção de segurança periódica das caldeiras por elas protegidas, de acordo com os subitens 13.4.4.4 e 13.4.4.5',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.4.7.1 Em situações excepcionais, devidamente justificadas por PLH, as válvulas de segurança que não atendam ao disposto no subitem 13.4.4.7 podem ser testadas no campo, com uma frequência compatível com o histórico operacional destes dispositivos.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.4.8 Além do disposto no subitem 13.4.4.7, as válvulas de segurança instaladas em caldeiras de categoria B devem ser testadas periodicamente conforme segue:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) pelo menos uma vez por mês, mediante acionamento manual da alavanca durante a operação de caldeiras sem tratamento de água, exceto para aquelas que vaporizem fluido térmico; ou',
+      },
+      {
+        selected: false,
+        text: 'b) as caldeiras que operem com água tratada devem ter a alavanca acionada manualmente, de acordo com as prescrições do fabricante.',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'c) ausência ou bloqueio de dispositivos de segurança, sem a devida justificativa técnica, baseada em códigos, normas ou procedimentos formais de operação do equipamento;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]
+
+export const nrsForElectricalControlMeasurement = [
+  {
+    parent: '13.4.1.2 As caldeiras devem ser dotadas dos seguintes itens:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'e) sistema automático de controle do nível de água com intertravamento que evite o superaquecimento por alimentação deficiente.',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'd) ausência ou indisponibilidade operacional de dispositivo de controle do nível de água na caldeira;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]
+
+export const nrsForDischargeSystemMeasurements = [
+  {
+    parent:
+      '13.3.1 As seguintes situações constituem condição de grave e iminente risco:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'c) ausência ou bloqueio de dispositivos de segurança, sem a devida justificativa técnica, baseada em códigos, normas ou procedimentos formais de operação do equipamento;',
+      },
+    ],
+  },
+  {
+    parent:
+      '13.3.4.3 A execução de testes pneumáticos ou hidropneumáticos, quando indispensável, deve ser realizada sob responsabilidade técnica de PLH, com aprovação prévia dos procedimentos a serem aplicados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.5 É proibida a inibição dos instrumentos, controles e sistemas de segurança, exceto quando prevista, de forma provisória, em procedimentos formais de operação e manutenção ou mediante justificativa formalmente documentada elaborada por responsável técnico, com prévia análise de risco e anuência do empregador ou de preposto por ele designado, desde que mantida a segurança operacional.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.6 Os instrumentos e sistemas de controle e segurança dos equipamentos abrangidos por esta NR devem ser mantidos em condições adequadas de uso e devidamente inspecionados e testados ou, quando aplicável, calibrados.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.3.7 Todos os reparos ou alterações em equipamentos abrangidos nesta NR devem respeitar os respectivos códigos de construção e as prescrições do fabricante no que se refere a:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) materiais;',
+      },
+      {
+        selected: false,
+        text: 'b) procedimentos de execução;',
+      },
+      {
+        selected: false,
+        text: 'c) procedimentos de controle de qualidade; e',
+      },
+      {
+        selected: false,
+        text: 'd) qualificação e certificação de pessoal.',
+      },
+    ],
+  },
+]
+
+export const nrsForWaterQuality = [
+  {
+    parent:
+      '13.4.3.2 A qualidade da água deve ser controlada e tratamentos devem ser implementados, quando necessários, para compatibilizar suas propriedades físico químicas com os parâmetros de operação da caldeira definidos pelo fabricante.',
+    parentSelected: false,
+    children: [],
+  },
+]
+
+export const nrsForHydrostaticTests = [
+  {
+    parent:
+      '13.4.4.3 As caldeiras devem, obrigatoriamente, ser submetidas a Teste Hidrostático - TH em sua fase de fabricação, com comprovação por meio de laudo assinado por PLH.',
+    parentSelected: false,
+    children: [],
+  },
+  {
+    parent:
+      '13.4.4.3.1 Na falta de comprovação documental de que o TH tenha sido realizado na fase de fabricação, se aplicará o disposto a seguir:',
+    parentSelected: false,
+    children: [
+      {
+        selected: false,
+        text: 'a) para as caldeiras fabricadas ou importadas a partir de 2 de maio de 2014, o TH correspondente ao da fase de fabricação deve ser feito durante a inspeção de segurança inicial; ou',
+      },
+      {
+        selected: false,
+        text: 'b) para as caldeiras em operação antes de 2 de maio de 2014, a execução do TH correspondente ao da fase de fabricação fica a critério técnico do PLH e, caso este julgue necessário, deve ser executado até a próxima inspeção de segurança periódica interna.',
+      },
+    ],
+  },
+]
+
+export const nrsForAccumulationTests = [
+  {
+    parent:
+      '13.4.4.9 Adicionalmente aos testes prescritos nos subitens 13.4.4.7 e 13.4.4.8, as válvulas de segurança instaladas em caldeiras podem ser submetidas a testes de acumulação, a critério técnico do PLH.',
+    parentSelected: false,
+    children: [],
+  },
+]

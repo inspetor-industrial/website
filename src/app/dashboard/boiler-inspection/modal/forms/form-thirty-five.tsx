@@ -11,8 +11,10 @@ import {
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
 import { units } from '@inspetor/constants/units'
+import { valueToCalculateAutomaticBoilerBody } from '@inspetor/utils/value-to-calculate-automatic-boiler-body'
+import { valueToCalculateAutomaticFurnace } from '@inspetor/utils/value-to-calculate-automatic-furnace'
 import { documentValidator } from '@inspetor/utils/zod-validations/document-validator'
-import { forwardRef, useImperativeHandle } from 'react'
+import { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -38,10 +40,34 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
   { defaultValues }: FormThirtyFiveProps,
   ref,
 ) {
+  let thicknessProvideByCreator = '0'
+  if (defaultValues?.structure?.furnace?.type === 'waterTube') {
+    thicknessProvideByCreator = defaultValues?.structure?.body?.furnace
+      ?.dimensions?.tube?.thickness
+      ? // eslint-disable-next-line no-eval
+        (
+          eval(defaultValues?.structure?.furnace?.dimensions?.tube?.thickness) *
+          25.4
+        ).toFixed(2)
+      : defaultValues?.thicknessProvidedByManufacturerBodyExaminationD
+  } else {
+    thicknessProvideByCreator = defaultValues?.structure?.body?.furnace
+      ?.dimensions?.tube?.thickness
+      ? // eslint-disable-next-line no-eval
+        (eval(defaultValues?.structure?.mirror?.thickness) * 25.4).toFixed(2)
+      : defaultValues?.thicknessProvidedByManufacturerBodyExaminationD
+  }
+
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: {
+      ...(defaultValues ?? {}),
+      thicknessProvidedByManufacturerBodyExaminationD:
+        thicknessProvideByCreator,
+    },
   })
+
+  const determinedAverage = form.watch('meanBodyExaminationD')
 
   useImperativeHandle(ref, () => {
     return {
@@ -67,6 +93,83 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
       form,
     }
   })
+
+  useEffect(() => {
+    const bodyDiameter = defaultValues?.structure?.body?.thickness || '0'
+    const boilerMaximumPressure =
+      defaultValues?.identification?.maximumWorkingPressure || '0'
+    const furnaceType = defaultValues?.structure?.furnace?.type || ''
+    const aquatubularTubeDiameter =
+      defaultValues?.structure?.furnace?.dimensions?.diameter || '0'
+    const tubeDiameter =
+      defaultValues?.structure?.furnace?.dimensions?.tube?.diameter || '0'
+    const furnaceTypeInfo = defaultValues?.structure?.furnace?.infos || ''
+    const staysWidth =
+      defaultValues?.structure?.freeLengthWithoutStaysOrTube || '0'
+
+    if (defaultValues?.structure?.furnace?.type === 'waterTube') {
+      const result = valueToCalculateAutomaticBoilerBody({
+        boiler_maximum_pressure: boilerMaximumPressure,
+        bodyDiameter,
+        body_diameter: bodyDiameter,
+        tube_diameter: tubeDiameter,
+        values: 0,
+        furnace_types: furnaceType,
+        aquatubular_tube_diameter: aquatubularTubeDiameter,
+        isFurnaceForm: true,
+      })
+
+      form.setValue(
+        'allowableThicknessBodyExaminationD',
+        String(result?.toFixed(2)),
+      )
+    } else if (defaultValues?.structure?.furnace?.type === 'cooled') {
+      const result = valueToCalculateAutomaticFurnace({
+        bodyDiameter: bodyDiameter,
+        tube_diameter: tubeDiameter,
+        aquatubular_tube_diameter: aquatubularTubeDiameter,
+        boiler_maximum_pressure: boilerMaximumPressure,
+        values: 0,
+        furnaceTypeInfo,
+        staysWidth,
+      })
+
+      form.setValue(
+        'allowableThicknessBodyExaminationD',
+        String(result?.toFixed(2)),
+      )
+    } else {
+      form.setValue('allowableThicknessBodyExaminationD', String(0))
+    }
+  }, [
+    defaultValues?.identification?.maximumWorkingPressure,
+    defaultValues?.structure?.body?.thickness,
+    defaultValues?.structure?.freeLengthWithoutStaysOrTube,
+    defaultValues?.structure?.furnace?.dimensions?.diameter,
+    defaultValues?.structure?.furnace?.dimensions?.tube?.diameter,
+    defaultValues?.structure?.furnace?.infos,
+    defaultValues?.structure?.furnace?.type,
+    form,
+  ])
+
+  useEffect(() => {
+    if (determinedAverage && thicknessProvideByCreator) {
+      const corrosionRate =
+        determinedAverage && thicknessProvideByCreator
+          ? Number(determinedAverage.replaceAll(',', '.')) >
+            Number(thicknessProvideByCreator.replaceAll(',', '.'))
+            ? 0
+            : (
+                (Number(determinedAverage) /
+                  Number(thicknessProvideByCreator)) *
+                  -100 +
+                100
+              ).toFixed(2)
+          : ''
+
+      form.setValue('corrosionRateBodyExaminationD', String(corrosionRate))
+    }
+  }, [determinedAverage, form, thicknessProvideByCreator])
 
   return (
     <Form {...form}>

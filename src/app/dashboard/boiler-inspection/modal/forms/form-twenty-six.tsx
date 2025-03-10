@@ -3,17 +3,7 @@ import { DocumentField } from '@inspetor/components/document-field'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
-import { Button } from '@inspetor/components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@inspetor/components/ui/dialog'
+import { Checkbox } from '@inspetor/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -23,6 +13,7 @@ import {
   FormMessage,
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
+import { Label } from '@inspetor/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -31,7 +22,6 @@ import {
   SelectValue,
 } from '@inspetor/components/ui/select'
 import { Separator } from '@inspetor/components/ui/separator'
-import { Switch } from '@inspetor/components/ui/switch'
 import { Textarea } from '@inspetor/components/ui/textarea'
 import { nrsForMeasurementContinuationValve } from '@inspetor/constants/nrs'
 import { units } from '@inspetor/constants/units'
@@ -92,7 +82,7 @@ const schema = z.object({
     closingPressure: z.string().optional().default(''),
   }),
   valvePhotos: documentValidator,
-  isThereSafetyValveRedundancy: z.boolean().optional().default(false),
+  isThereSafetyValveRedundancy: z.string().optional().default(''),
   observationsValves: z.string().optional().default(''),
 })
 
@@ -458,10 +448,42 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                   Existe redundância de válvula de segurança?
                 </FormLabel>
                 <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
+                  <div className="flex space-x-2">
+                    <div className="space-x-1 flex items-center">
+                      <Checkbox
+                        checked={field.value === 'yes'}
+                        onCheckedChange={(checked) => {
+                          field.onChange(checked ? 'yes' : '')
+                        }}
+                        className="border-zinc-950 bg-zinc-800 data-[state=checked]:bg-blue-800"
+                        id="option-yes"
+                      />
+                      <Label
+                        htmlFor="option-yes"
+                        variant="form"
+                        className="text-sm"
+                      >
+                        SIM
+                      </Label>
+                    </div>
+                    <div className="space-x-1 flex items-center">
+                      <Checkbox
+                        checked={field.value === 'no'}
+                        onCheckedChange={(checked) => {
+                          field.onChange(checked ? 'no' : '')
+                        }}
+                        className="border-zinc-950 bg-zinc-800 data-[state=checked]:bg-blue-800"
+                        id="option-no"
+                      />
+                      <Label
+                        htmlFor="option-no"
+                        variant="form"
+                        className="text-sm"
+                      >
+                        NÃO
+                      </Label>
+                    </div>
+                  </div>
                 </FormControl>
               </FormItem>
             )

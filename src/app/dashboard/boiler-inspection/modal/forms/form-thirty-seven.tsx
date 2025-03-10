@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Checkbox } from '@inspetor/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -8,7 +9,8 @@ import {
   FormMessage,
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
-import { Switch } from '@inspetor/components/ui/switch'
+import { Label } from '@inspetor/components/ui/label'
+import { Textarea } from '@inspetor/components/ui/textarea'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -18,7 +20,7 @@ const schema = z.object({
   nrItemsThatNotBeingMet: z.string().optional().default(''),
   immediateMeasuresNecessary: z.string().optional().default(''),
   necessaryRecommendations: z.string().optional().default(''),
-  canBeOperateNormally: z.boolean().optional().default(false),
+  canBeOperateNormally: z.string().optional().default(''),
 })
 
 type Schema = z.infer<typeof schema>
@@ -83,7 +85,7 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
                 ITENS DESTA NR QUE NÃO ESTÃO SENDO ATENDIDOS:
               </FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Textarea {...field} />
               </FormControl>
 
               <FormMessage />
@@ -98,7 +100,7 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
             <FormItem>
               <FormLabel>PROVIDÊNCIAS IMEDIATAS NECESSÁRIAS:</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Textarea {...field} />
               </FormControl>
 
               <FormMessage />
@@ -113,7 +115,7 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
             <FormItem>
               <FormLabel>RECOMENDAÇÕES NECESSÁRIAS:</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Textarea {...field} />
               </FormControl>
 
               <FormMessage />
@@ -130,10 +132,42 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
                 A CALDEIRA INSPECIONADA PODE SER UTILIZADA NORMALMENTE?
               </FormLabel>
               <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
+                <div className="flex space-x-2">
+                  <div className="space-x-1 flex items-center">
+                    <Checkbox
+                      checked={field.value === 'yes'}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked ? 'yes' : '')
+                      }}
+                      className="border-zinc-950 bg-zinc-800 data-[state=checked]:bg-blue-800"
+                      id="option-yes"
+                    />
+                    <Label
+                      htmlFor="option-yes"
+                      variant="form"
+                      className="text-sm"
+                    >
+                      SIM
+                    </Label>
+                  </div>
+                  <div className="space-x-1 flex items-center">
+                    <Checkbox
+                      checked={field.value === 'no'}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked ? 'no' : '')
+                      }}
+                      className="border-zinc-950 bg-zinc-800 data-[state=checked]:bg-blue-800"
+                      id="option-no"
+                    />
+                    <Label
+                      htmlFor="option-no"
+                      variant="form"
+                      className="text-sm"
+                    >
+                      NÃO
+                    </Label>
+                  </div>
+                </div>
               </FormControl>
 
               <FormMessage />

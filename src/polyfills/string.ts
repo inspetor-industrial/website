@@ -1,6 +1,7 @@
 declare global {
   interface String {
     toNumber(): number | null
+    isDigit(): boolean
   }
 }
 
@@ -13,6 +14,12 @@ if (!String.prototype.toNumber) {
     }
 
     return parsedValue
+  }
+}
+
+if (!String.prototype.isDigit) {
+  String.prototype.isDigit = function (): boolean {
+    return /^\d+$/.test(this.toString())
   }
 }
 

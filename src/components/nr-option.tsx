@@ -15,7 +15,6 @@ interface NrOptionProps {
 }
 
 export function NrOption({ nr, onSelectValue }: NrOptionProps) {
-  console.log(nr)
   const doesAllCheckboxSelected =
     (nr.children.every((n) => n.selected) && nr.children.length > 0) ||
     nr.parentSelected

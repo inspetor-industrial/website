@@ -43,12 +43,15 @@ export const hydrostaticTests = [
 ]
 
 const schema = z.object({
-  hydrostaticTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  hydrostaticTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   hydrostaticNrs: nrValidator,
   observationsHydrostatic: z.string().optional().default(''),
   duration: z.string().optional().default(''),

@@ -33,12 +33,15 @@ export const waterQuality = [
 ]
 
 const schema = z.object({
-  waterTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  waterTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   waterNrs: nrValidator,
   observationsWater: z.string().optional().default(''),
   ph: z.string().optional().default(''),

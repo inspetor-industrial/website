@@ -19,12 +19,15 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  dischargeTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  dischargeTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   dischargesNrs: nrValidator,
   dischargePhotos: documentValidator,
   observationDischarge: z.string().optional().default(''),

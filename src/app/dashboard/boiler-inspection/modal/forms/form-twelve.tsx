@@ -66,12 +66,15 @@ export const tableExternExamsQuestions = [
 ]
 
 const schema = z.object({
-  externExamTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  externExamTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   externExamNrs: nrValidator,
 })
 

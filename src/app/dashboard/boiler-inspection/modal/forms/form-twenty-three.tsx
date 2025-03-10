@@ -39,12 +39,15 @@ export const tableBombsQuestions = [
 ]
 
 const schema = z.object({
-  bombsTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  bombsTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   bombsNrs: nrValidator,
   observationsPowerSupply: z.string().optional().default(''),
 })

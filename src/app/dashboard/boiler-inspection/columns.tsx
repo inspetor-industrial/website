@@ -35,12 +35,16 @@ export const columns: ColumnDef<BoilerInspection>[] = [
     id: 'company',
   },
   {
-    accessorFn: (row) => dayjsApi(new Date(row.date)).format('DD/MM/YYYY'),
+    accessorFn: (row) =>
+      row.date ? dayjsApi(new Date(row.date)).format('DD/MM/YYYY') : '-',
     header: 'Data da Inspeção',
     id: 'date',
   },
   {
-    accessorFn: (row) => dayjsApi(new Date(row.nextDate)).format('DD/MM/YYYY'),
+    accessorFn: (row) =>
+      row.nextDate
+        ? dayjsApi(new Date(row.nextDate)).format('DD/MM/YYYY')
+        : '-',
     header: 'Próxima Inspeção',
     id: 'nextDate',
   },

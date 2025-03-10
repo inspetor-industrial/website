@@ -1,6 +1,7 @@
 'use client'
 
 import { PartialBoilerInspection } from '@inspetor/@types/models/boiler-inspection'
+import { ButtonLoading } from '@inspetor/components/button-loading'
 import { Button } from '@inspetor/components/ui/button'
 import {
   Dialog,
@@ -11,12 +12,29 @@ import {
   DialogTitle,
 } from '@inspetor/components/ui/dialog'
 import { ScrollArea, ScrollBar } from '@inspetor/components/ui/scroll-area'
+import { boilerInspectionType } from '@inspetor/constants/boiler-inspection-type'
+import { appConfigs } from '@inspetor/constants/configs'
 import { events } from '@inspetor/constants/events'
+import { firebaseModels } from '@inspetor/constants/firebase-models'
 import { toast } from '@inspetor/hooks/use-toast'
+import { firestore } from '@inspetor/lib/firebase/client'
 import { blankFunction } from '@inspetor/utils/blank-function'
-import { makeOptionValue } from '@inspetor/utils/combobox-options'
+import { makeOptionObject } from '@inspetor/utils/combobox-options'
+import { generateSubstrings } from '@inspetor/utils/generate-substrings'
 import { parseBoilerReportInspection } from '@inspetor/utils/parse-boiler-report-inspection'
+import { replaceUndefinedValues } from '@inspetor/utils/replace-undefined-values'
+import { runSafety } from '@inspetor/utils/run-safety'
+import {
+  collection,
+  doc,
+  getCountFromServer,
+  getDocFromServer,
+  query,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore'
 import { merge } from 'lodash'
+import { useSession } from 'next-auth/react'
 import {
   forwardRef,
   useEffect,
@@ -43,9 +61,14 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
 ) {
   const [isModalOpened, setIsModalOpened] = useState(false)
   const [currentFormIndex, setCurrentFormIndex] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const session = useSession()
 
   const [boilerReportState, setBoilerReportState] =
     useState<PartialBoilerInspection>({})
+
+  const [boilerReportId, setBoilerReportId] = useState<string | null>(null)
 
   function getBoilerReportToDefaultValuesInForm() {
     let boilerReport = { ...boilerReportState }
@@ -86,57 +109,144 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
   }
 
   async function handleSubmitStep() {
-    if (!formRef.current) {
-      toast({
-        title: 'Erro',
-        description: 'Formulário não encontrado',
-        variant: 'destructive',
-      })
+    try {
+      if (session.data?.user?.companyId === 'unknown') {
+        toast({
+          title: 'AVISO!',
+          description:
+            'Usuário sem empresa associada. Contate os administradores associar uma empresa e ajustar o usuário criado, caso contrário não será possível realizar qualquer ação no sistema.',
+          variant: 'destructive',
+        })
 
-      return
-    }
+        return
+      }
 
-    const submit = formRef.current.form.handleSubmit(blankFunction)
-    await submit()
+      setIsSubmitting(true)
+      if (!formRef.current) {
+        toast({
+          title: 'Erro',
+          description: 'Formulário não encontrado',
+          variant: 'destructive',
+        })
 
-    const isFormValid =
-      Object.keys(formRef.current.form.formState.errors).length === 0
+        setIsSubmitting(false)
+        return
+      }
 
-    if (!isFormValid) {
-      console.log(
-        'formRef.current.form.formState',
-        formRef.current.form.formState.errors,
-      )
-      toast({
-        title: 'Erro',
-        description:
-          'Verifique os campos necessários, pois alguns estão inválidos',
-        variant: 'destructive',
-      })
+      const submit = formRef.current.form.handleSubmit(blankFunction)
+      await submit()
 
-      return
-    }
+      const isFormValid =
+        Object.keys(formRef.current.form.formState.errors).length === 0
 
-    const valuesToUpdate = formRef.current
-      .runAutoCompleteAndFormatterWithDefaultValues
-      ? formRef.current.runAutoCompleteAndFormatterWithDefaultValues(
-          formRef.current.getValues(),
+      if (!isFormValid) {
+        toast({
+          title: 'Erro',
+          description:
+            'Verifique os campos necessários, pois alguns estão inválidos',
+          variant: 'destructive',
+        })
+
+        setIsSubmitting(false)
+        return
+      }
+
+      const valuesToUpdate = formRef.current
+        .runAutoCompleteAndFormatterWithDefaultValues
+        ? formRef.current.runAutoCompleteAndFormatterWithDefaultValues(
+            formRef.current.getValues(),
+          )
+        : formRef.current.getValues()
+
+      // if (valuesToUpdate.startTimeInspection) {
+      //   valuesToUpdate.startTimeInspection = await runSafety(() => {
+      //     return valuesToUpdate.startTimeInspection.toDate().getTime()
+      //   })
+      // }
+
+      // if (valuesToUpdate.endTimeInspection) {
+      //   valuesToUpdate.endTimeInspection = await runSafety(() => {
+      //     return valuesToUpdate.endTimeInspection.toDate().getTime()
+      //   })
+      // }
+
+      if (typeof valuesToUpdate.client === 'string') {
+        valuesToUpdate.client = makeOptionObject(valuesToUpdate.client, [
+          'id',
+          'name',
+          'cnpjOrCpf',
+        ])
+      }
+
+      if (typeof valuesToUpdate.responsible === 'string') {
+        valuesToUpdate.responsible = makeOptionObject(
+          valuesToUpdate.responsible,
+          ['id', 'name', 'stateRegistry'],
         )
-      : formRef.current.getValues()
-    updateReportInfo(valuesToUpdate)
+      }
 
-    if (currentFormIndex === forms.length - 1) {
-      setIsModalOpened(false)
-      toast({
-        title: 'Sucesso',
-        description: 'Relatório de inspeção de caldeira salvo com sucesso',
-        variant: 'success',
+      updateReportInfo(valuesToUpdate)
+
+      await runSafety(async () => {
+        let docId = boilerReportId
+        const coll = collection(firestore, firebaseModels.boilerInspection)
+
+        const substrings = generateSubstrings(
+          `${valuesToUpdate.client?.name}${boilerInspectionType[valuesToUpdate.service as keyof typeof boilerInspectionType]}`,
+        )
+
+        if (!docId) {
+          const newDoc = doc(coll)
+          docId = newDoc.id
+
+          const total = await getCountFromServer(query(coll))
+
+          await setDoc(newDoc, {
+            createdAt: Timestamp.now().toMillis(),
+            updatedAt: Timestamp.now().toMillis(),
+            [appConfigs.firestore.searchProperty]: Array.from(substrings),
+            rowNumber: total.data().count + 1,
+            createdBy: session.data?.user?.id ?? appConfigs.defaultUsername,
+            updatedBy: session.data?.user?.id ?? appConfigs.defaultUsername,
+            [appConfigs.firestore.permissions.byCompanyPropertyName]:
+              session.data?.user?.companyId,
+          })
+
+          setBoilerReportId(docId)
+        }
+
+        await setDoc(
+          doc(coll, docId),
+          {
+            ...replaceUndefinedValues(boilerReportState),
+            updatedAt: Timestamp.now().toMillis(),
+            [appConfigs.firestore.searchProperty]: Array.from(substrings),
+            updatedBy: session.data?.user?.id ?? appConfigs.defaultUsername,
+            [appConfigs.firestore.permissions.byCompanyPropertyName]:
+              session.data?.user?.companyId,
+          },
+          {
+            merge: true,
+          },
+        )
       })
 
-      return
-    }
+      if (currentFormIndex === forms.length - 1) {
+        setIsModalOpened(false)
+        toast({
+          title: 'Sucesso',
+          description: 'Relatório de inspeção de caldeira salvo com sucesso',
+          variant: 'success',
+        })
 
-    setCurrentFormIndex((prevIndex) => prevIndex + 1)
+        setIsSubmitting(false)
+        return
+      }
+
+      setCurrentFormIndex((prevIndex) => prevIndex + 1)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   useEffect(() => {
@@ -219,9 +329,14 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
               {currentFormIndex === 0 ? 'Cancelar' : 'Voltar'}
             </Button>
 
-            <Button variant="modal" size="modal" onClick={handleSubmitStep}>
+            <ButtonLoading
+              variant="modal"
+              size="modal"
+              isLoading={isSubmitting}
+              onClick={handleSubmitStep}
+            >
               {currentFormIndex === forms.length - 1 ? 'Finalizar' : 'Próximo'}
-            </Button>
+            </ButtonLoading>
           </div>
         </DialogFooter>
       </DialogContent>

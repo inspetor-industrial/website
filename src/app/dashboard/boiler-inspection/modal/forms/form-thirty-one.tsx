@@ -43,12 +43,15 @@ export const accumulationTest = [
 ]
 
 const schema = z.object({
-  accumulationTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  accumulationTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   accumulationNrs: nrValidator,
   observationsAccumulation: z.string().optional().default(''),
   duration: z.string().optional().default(''),

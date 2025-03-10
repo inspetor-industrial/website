@@ -36,12 +36,15 @@ export const tableLevelIndicatorQuestions = [
 ]
 
 const schema = z.object({
-  levelIndicatorTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  levelIndicatorTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   levelIndicatorNrs: nrValidator,
   observationsLevelIndicator: z.string().optional().default(''),
 })

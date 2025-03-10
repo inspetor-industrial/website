@@ -28,10 +28,10 @@ export function parseBoilerReportInspection(boilerReport: any) {
 
     boilerReport.heatingSurface = boilerReport.structure.heatingSurface
 
-    boilerReport.tubeDiameter =
+    boilerReport.tubeDiameterFurnace =
       boilerReport.structure.furnace?.dimensions?.tube?.diameter
 
-    boilerReport.tubeThickness =
+    boilerReport.tubeThicknessFurnace =
       boilerReport.structure.furnace?.dimensions?.tube?.thickness
 
     boilerReport.furnaceHeight =

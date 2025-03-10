@@ -15,7 +15,6 @@ import {
 
 export async function getUsersOptions(params: any) {
   const { page, filters, companyId } = params
-  console.log(companyId)
   const coll = collection(firestore, firebaseModels.users)
   const q = query(
     coll,
@@ -36,7 +35,6 @@ export async function getUsersOptions(params: any) {
 
   const users = await getDocs(q)
 
-  console.log(users)
   return users.docs.map((doc) => {
     const data = doc.data() as User
     return {

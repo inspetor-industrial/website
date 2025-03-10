@@ -18,8 +18,8 @@ import { z } from 'zod'
 
 const schema = z.object({
   date: z.number(),
-  startTimeInspection: z.any().transform((value) => value.toDate().getTime()),
-  endTimeInspection: z.any().transform((value) => value.toDate().getTime()),
+  startTimeInspection: z.any(),
+  endTimeInspection: z.any(),
 
   validity: z.string(),
   nextDate: z.number(),
@@ -52,7 +52,10 @@ const FormTwo = forwardRef(function FormTwo(
     return {
       getValues: form.getValues,
       runAutoCompleteAndFormatterWithDefaultValues: (values: Schema) => {
-        return values
+        return {
+          ...defaultValues,
+          ...values,
+        }
       },
       form,
     }
@@ -93,10 +96,6 @@ const FormTwo = forwardRef(function FormTwo(
           name="startTimeInspection"
           control={form.control}
           render={({ field }) => {
-            console.log(field.value)
-            console.log(new Date(field.value))
-            console.log(dayjsApi(new Date(field.value)))
-
             return (
               <FormItem>
                 <FormLabel>Horário de início</FormLabel>
@@ -108,8 +107,13 @@ const FormTwo = forwardRef(function FormTwo(
                         format: 'HH:mm',
                         type: 'mask',
                       }}
+                      value={
+                        field.value ? dayjsApi(field.value, 'HH:mm') : undefined
+                      }
+                      onChange={(_value, timeString) =>
+                        field.onChange(timeString)
+                      }
                       needConfirm
-                      {...field}
                     />
                   </ConfigProvider>
                 </FormControl>
@@ -134,8 +138,13 @@ const FormTwo = forwardRef(function FormTwo(
                         format: 'HH:mm',
                         type: 'mask',
                       }}
+                      value={
+                        field.value ? dayjsApi(field.value, 'HH:mm') : undefined
+                      }
+                      onChange={(_value, timeString) =>
+                        field.onChange(timeString)
+                      }
                       needConfirm
-                      {...field}
                     />
                   </ConfigProvider>
                 </FormControl>

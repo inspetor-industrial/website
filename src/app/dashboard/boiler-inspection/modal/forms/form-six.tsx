@@ -24,8 +24,8 @@ import { z } from 'zod'
 const schema = z.object({
   furnaceType: z.string().optional(),
   heatingSurface: z.string().optional(),
-  tubeDiameter: z.string().optional(),
-  tubeThickness: z.string().optional(),
+  tubeDiameterFurnace: z.string().optional(),
+  tubeThicknessFurnace: z.string().optional(),
 
   furnaceHeight: z.string().optional(),
   furnaceWidth: z.string().optional(),
@@ -88,8 +88,8 @@ const FormSix = forwardRef(function FormSix(
                 tube: {
                   ...(defaultValues?.structure?.furnace?.dimensions?.tube ??
                     {}),
-                  diameter: values.tubeDiameter,
-                  thickness: values.tubeThickness,
+                  diameter: values.tubeDiameterFurnace,
+                  thickness: values.tubeThicknessFurnace,
                 },
               },
             },
@@ -346,7 +346,7 @@ const FormSix = forwardRef(function FormSix(
           <div>
             <FormField
               control={form.control}
-              name="tubeDiameter"
+              name="tubeDiameterFurnace"
               render={({ field }) => (
                 <FormItem className="mb-2">
                   <FormLabel>Diâmetro do tubo da fornalha</FormLabel>
@@ -360,7 +360,7 @@ const FormSix = forwardRef(function FormSix(
 
             <FormField
               control={form.control}
-              name="tubeThickness"
+              name="tubeThicknessFurnace"
               render={({ field }) => (
                 <FormItem className="mb-2">
                   <FormLabel>Espessura do tubo da fornalha</FormLabel>

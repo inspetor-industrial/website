@@ -55,7 +55,7 @@ export function DocumentField({
   ) {
     event.preventDefault()
 
-    if (documents.length >= MAX_OF_FILES) {
+    if (documents?.length >= MAX_OF_FILES) {
       toast({
         title: 'Erro com o arquivo',
         description: `O limite de ${MAX_OF_FILES} arquivos foi atingido.`,
@@ -80,7 +80,7 @@ export function DocumentField({
       return
     }
 
-    if (documents.some((d) => d.name === file.name)) {
+    if (documents && documents?.some((d) => d.name === file.name)) {
       toast({
         title: 'Erro com o arquivo',
         description: `O arquivo '${file.name}' já foi enviado.`,
@@ -218,7 +218,11 @@ export function DocumentField({
         status: appConfigs.firebase.models.status.inactive,
       })
 
-      onChange?.(documents.filter((d) => d.id !== document.id))
+      onChange?.(
+        documents.filter(
+          (d) => d.id !== document.id || d.name !== document.name,
+        ),
+      )
       toast({
         title: 'Documento deletado com sucesso!',
         variant: 'success',
@@ -232,7 +236,7 @@ export function DocumentField({
   }
 
   const text =
-    documents.length > 0 ? `${documents.length} documento(s)` : placeholder
+    documents?.length > 0 ? `${documents.length} documento(s)` : placeholder
 
   return (
     <div
@@ -263,45 +267,46 @@ export function DocumentField({
         />
       </label>
 
-      {documents.map((document) => {
-        return (
-          <div
-            key={document.id}
-            className={`flex items-center justify-between mt-4 ${isOnModal ? 'text-white' : ''}`}
-          >
-            <div className="flex items-center gap-2">
-              <File className="size-4" />
-              <span className="text-sm">
-                {document.name} ({formatFileSize(document?.size)})
-              </span>
-            </div>
+      {documents &&
+        documents?.map((document) => {
+          return (
+            <div
+              key={document.id}
+              className={`flex items-center justify-between mt-4 ${isOnModal ? 'text-white' : ''}`}
+            >
+              <div className="flex items-center gap-2">
+                <File className="size-4" />
+                <span className="text-sm">
+                  {document.name} ({formatFileSize(document?.size)})
+                </span>
+              </div>
 
-            <div className="flex items-center gap-2">
-              <ScanSearch
-                className="size-4 cursor-pointer"
-                onClick={() => handleViewFile(document)}
-              />
-              <CloudDownload
-                className="size-4 cursor-pointer"
-                onClick={() => handleDownloadFile(document)}
-              />
-              {!props.disabled && (
-                <X
-                  className={cn(
-                    'size-4 cursor-pointer group-aria-disabled:cursor-not-allowed',
-                    props.disabled && '!cursor-not-allowed',
-                  )}
-                  onClick={
-                    props.disabled
-                      ? undefined
-                      : () => handleDeleteFile(document)
-                  }
+              <div className="flex items-center gap-2">
+                <ScanSearch
+                  className="size-4 cursor-pointer"
+                  onClick={() => handleViewFile(document)}
                 />
-              )}
+                <CloudDownload
+                  className="size-4 cursor-pointer"
+                  onClick={() => handleDownloadFile(document)}
+                />
+                {!props.disabled && (
+                  <X
+                    className={cn(
+                      'size-4 cursor-pointer group-aria-disabled:cursor-not-allowed',
+                      props.disabled && '!cursor-not-allowed',
+                    )}
+                    onClick={
+                      props.disabled
+                        ? undefined
+                        : () => handleDeleteFile(document)
+                    }
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
 
       <ProgressAlertDialog
         title="Subindo arquivos"

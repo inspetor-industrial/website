@@ -85,7 +85,7 @@ const FormNine = forwardRef(function FormNine(
           name="tubeThickness"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Espessura de tubos</FormLabel>
+              <FormLabel className="text-zinc-50">Espessura de tubos</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -99,7 +99,7 @@ const FormNine = forwardRef(function FormNine(
           name="tubeMaterial"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Material do tubo</FormLabel>
+              <FormLabel className="text-zinc-50">Material do tubo</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
@@ -125,7 +125,9 @@ const FormNine = forwardRef(function FormNine(
           name="tubeHasCertificateOfManufacturer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Certificado do fabricante</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Certificado do fabricante
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -174,7 +176,7 @@ const FormNine = forwardRef(function FormNine(
           name="tubeIsNaturalOrForced"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tipo de tiragem</FormLabel>
+              <FormLabel className="text-zinc-50">Tipo de tiragem</FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -223,7 +225,9 @@ const FormNine = forwardRef(function FormNine(
           name="quantityOfSafetyFuse"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Número de fusíveis de segurança</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Número de fusíveis de segurança
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

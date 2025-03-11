@@ -92,7 +92,9 @@ const FormFive = forwardRef(function FormFive(
           name="maximumWorkingPressure"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Pressão máxima de trabalho admissível</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Pressão máxima de trabalho admissível
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
@@ -114,7 +116,7 @@ const FormFive = forwardRef(function FormFive(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Combustível</FormLabel>
+                <FormLabel className="text-zinc-50">Combustível</FormLabel>
                 <FormControl>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -142,7 +144,9 @@ const FormFive = forwardRef(function FormFive(
           name="operatingPressure"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Pressão de operação</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Pressão de operação
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
@@ -188,7 +192,7 @@ const FormFive = forwardRef(function FormFive(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Série</FormLabel>
+                <FormLabel className="text-zinc-50">Série</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -204,7 +208,9 @@ const FormFive = forwardRef(function FormFive(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Categoria da caldeira</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Categoria da caldeira
+                </FormLabel>
                 <FormControl>
                   <div className="flex space-x-2">
                     <div className="space-x-1 flex items-center">

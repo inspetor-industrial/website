@@ -16,12 +16,15 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schema = z.object({
-  pressureGaugeCalibrationTests: z.array(
-    z.object({
-      question: z.string(),
-      answer: z.string(),
-    }),
-  ),
+  pressureGaugeCalibrationTests: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   pressureGaugeCalibrationNrs: nrValidator,
   observationsPressureGauge: z.string().optional().default(''),
 })
@@ -109,7 +112,7 @@ const FormNineteen = forwardRef(function FormNineteen(
           name="observationsPressureGauge"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>

@@ -122,7 +122,7 @@ export function RegisterClientForm() {
         toast({
           title: 'AVISO!',
           description:
-            'Usuário sem empresa associada. Contate os adiministradores associar uma empresa e ajustar o usuário criado, caso contrário não será possível realizar qualquer ação no sistema.',
+            'Usuário sem empresa associada. Contate os administradores associar uma empresa e ajustar o usuário criado, caso contrário não será possível realizar qualquer ação no sistema.',
           variant: 'destructive',
         })
 

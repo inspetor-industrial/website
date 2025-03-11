@@ -35,7 +35,7 @@ export function InputWithSuffix({
     >
       <input
         className={cn(
-          'bg-transparent focus-within:outline-none w-full',
+          'bg-transparent focus-within:outline-none w-full read-only:cursor-not-allowed read-only:opacity-50',
           readOnly && '!cursor-not-allowed',
         )}
         type="text"

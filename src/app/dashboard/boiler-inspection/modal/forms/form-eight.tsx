@@ -89,7 +89,7 @@ const FormEight = forwardRef(function FormEight(
           name="bodyMaterial"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Material do corpo</FormLabel>
+              <FormLabel className="text-zinc-50">Material do corpo</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
@@ -115,7 +115,9 @@ const FormEight = forwardRef(function FormEight(
           name="bodyHasCertificateOfManufacturer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Certificado do fabricante</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Certificado do fabricante
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -164,7 +166,9 @@ const FormEight = forwardRef(function FormEight(
           name="tubeQuantity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quantidade de tubos</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Quantidade de tubos
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.un} />
               </FormControl>
@@ -178,7 +182,9 @@ const FormEight = forwardRef(function FormEight(
           name="tubeLength"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comprimento do tubo</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Comprimento do tubo
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -192,7 +198,7 @@ const FormEight = forwardRef(function FormEight(
           name="tubeDiameter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro do tubo</FormLabel>
+              <FormLabel className="text-zinc-50">Diâmetro do tubo</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.pol} />
               </FormControl>

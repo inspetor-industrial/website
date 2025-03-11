@@ -134,7 +134,7 @@ export function BoilerInspectionTable() {
       router.push(`/reports/boiler-inspection/preview/${boilerInspectionId}`)
     }
 
-    async function handleDeleteManometer(event: Event) {
+    async function handleDeleteBoilerInspection(event: Event) {
       const { boilerInspection } = (event as CustomEvent).detail
 
       try {
@@ -164,13 +164,13 @@ export function BoilerInspectionTable() {
 
     window.addEventListener(
       events.models.boilerInspection.delete,
-      handleDeleteManometer,
+      handleDeleteBoilerInspection,
     )
 
     return () => {
       window.removeEventListener(
         events.models.boilerInspection.delete,
-        handleDeleteManometer,
+        handleDeleteBoilerInspection,
       )
 
       window.removeEventListener(

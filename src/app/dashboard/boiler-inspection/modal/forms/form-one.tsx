@@ -81,7 +81,7 @@ const FormOne = forwardRef(function FormOne(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Serviço</FormLabel>
+                <FormLabel className="text-zinc-50">Serviço</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -100,7 +100,7 @@ const FormOne = forwardRef(function FormOne(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Tipo de inspeção</FormLabel>
+                <FormLabel className="text-zinc-50">Tipo de inspeção</FormLabel>
                 <FormControl>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -128,7 +128,7 @@ const FormOne = forwardRef(function FormOne(
           name="client"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Cliente</FormLabel>
+              <FormLabel className="text-zinc-50">Cliente</FormLabel>
               <FormControl>
                 <Combobox
                   entityKey="client"
@@ -150,7 +150,7 @@ const FormOne = forwardRef(function FormOne(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Motivação</FormLabel>
+                <FormLabel className="text-zinc-50">Motivação</FormLabel>
                 <FormControl>
                   <Textarea {...field} />
                 </FormControl>

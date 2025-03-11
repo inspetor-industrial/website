@@ -60,7 +60,7 @@ const FormSeventeen = forwardRef(function FormSeventeen(
           name="observationsLocalInstallation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -75,7 +75,9 @@ const FormSeventeen = forwardRef(function FormSeventeen(
           name="boilerHouse"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto da casa da caldeira</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto da casa da caldeira
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -97,7 +99,9 @@ const FormSeventeen = forwardRef(function FormSeventeen(
           name="extraPhotosBoilerHouse"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar fotos extras</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar fotos extras
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

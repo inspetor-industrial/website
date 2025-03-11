@@ -63,7 +63,7 @@ const FormThirteen = forwardRef(function FormThirteen(
           name="observationsExternalExams"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -78,7 +78,9 @@ const FormThirteen = forwardRef(function FormThirteen(
           name="plateIdentification"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto da placa de identificação</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto da placa de identificação
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -100,7 +102,9 @@ const FormThirteen = forwardRef(function FormThirteen(
           name="boiler"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto da caldeira</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto da caldeira
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -122,7 +126,9 @@ const FormThirteen = forwardRef(function FormThirteen(
           name="extraPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar fotos extras</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar fotos extras
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

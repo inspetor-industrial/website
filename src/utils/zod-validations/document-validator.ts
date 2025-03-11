@@ -28,4 +28,5 @@ export const documentValidator = z
         .nonempty("O campo 'companyOfUser' não pode estar vazio."),
     }),
   )
-  .min(1, 'A lista de documentos deve conter pelo menos um arquivo.')
+  .optional()
+  .default([])

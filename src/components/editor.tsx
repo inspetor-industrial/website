@@ -30,9 +30,6 @@ export function InspetorEditor({
   disabled,
   mainContainerClassName,
 }: InspetorEditorProps) {
-  console.log('value', value)
-  console.log('disabled', disabled)
-
   const [isEditorFocus, setIsEditorFocus] = useState(false)
   const [isBoldActive, setIsBoldActive] = useState(false)
   const [isItalicActive, setIsItalicActive] = useState(false)

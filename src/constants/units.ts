@@ -7,4 +7,13 @@ export const units = {
   mm: 'mm',
   pol: 'pol',
   un: 'un',
+  kgvPerH: 'kgv/h',
+  m: 'm',
+  mm2: 'mm²',
+  mm3: 'mm³',
+  m3: 'm³',
+  cv: 'CV',
+  ph: 'pH',
+  min: 'min',
+  percentage: '%',
 } as const

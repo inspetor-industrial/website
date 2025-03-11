@@ -18,6 +18,5 @@ export function parseAsString(text: any, options?: ParseAsStringOptions) {
       .join(separator ?? '\t')
   }
 
-  console.log(Object.values(text))
   return String(text)
 }

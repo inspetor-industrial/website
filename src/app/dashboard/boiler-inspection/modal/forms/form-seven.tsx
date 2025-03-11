@@ -75,7 +75,9 @@ const FormSeven = forwardRef(function FormSeven(
           name="mirrorDiameter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro do espelho</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Diâmetro do espelho
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -89,7 +91,9 @@ const FormSeven = forwardRef(function FormSeven(
           name="mirrorThickness"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Espessura do espelho</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Espessura do espelho
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.pol} />
               </FormControl>
@@ -103,7 +107,9 @@ const FormSeven = forwardRef(function FormSeven(
           name="freeLengthWithoutStaysOrTube"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro do espelho</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Diâmetro do espelho
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -117,7 +123,9 @@ const FormSeven = forwardRef(function FormSeven(
           name="bodyLength"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comprimento do corpo</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Comprimento do corpo
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -131,7 +139,7 @@ const FormSeven = forwardRef(function FormSeven(
           name="bodyDiameter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro do corpo</FormLabel>
+              <FormLabel className="text-zinc-50">Diâmetro do corpo</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -145,7 +153,7 @@ const FormSeven = forwardRef(function FormSeven(
           name="bodyThickness"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Espessura do corpo</FormLabel>
+              <FormLabel className="text-zinc-50">Espessura do corpo</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>

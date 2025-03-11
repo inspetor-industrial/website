@@ -119,7 +119,9 @@ const FormThree = forwardRef(function FormThree(
           name="responsible"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Engenheiro responsável</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Engenheiro responsável
+              </FormLabel>
               <FormControl>
                 <Combobox
                   entityKey="user"
@@ -146,7 +148,9 @@ const FormThree = forwardRef(function FormThree(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Nome do operador de caldeira</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Nome do operador de caldeira
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -162,7 +166,9 @@ const FormThree = forwardRef(function FormThree(
           name="isAbleToOperateWithNR13"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Operador se enquadra na nr13?</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Operador se enquadra na nr13?
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -213,7 +219,9 @@ const FormThree = forwardRef(function FormThree(
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Certificado do operador</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    Certificado do operador
+                  </FormLabel>
                   <FormControl>
                     <DocumentField
                       isOnModal
@@ -238,7 +246,7 @@ const FormThree = forwardRef(function FormThree(
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabel className="text-zinc-50">
                     Providências necessárias para o operador
                   </FormLabel>
                   <FormControl>
@@ -276,7 +284,7 @@ const FormThree = forwardRef(function FormThree(
           render={({ field }) => {
             return (
               <FormItem>
-                {/* <FormLabel></FormLabel> */}
+                {/* <FormLabel className="text-zinc-50"></FormLabel> */}
                 <FormControl>
                   <Textarea {...field} />
                 </FormControl>

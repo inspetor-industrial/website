@@ -82,7 +82,7 @@ const FormFour = forwardRef(function FormFour(
           name="manufacturer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fabricante</FormLabel>
+              <FormLabel className="text-zinc-50">Fabricante</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -97,7 +97,7 @@ const FormFour = forwardRef(function FormFour(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Marca</FormLabel>
+                <FormLabel className="text-zinc-50">Marca</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -113,7 +113,7 @@ const FormFour = forwardRef(function FormFour(
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tipo</FormLabel>
+              <FormLabel className="text-zinc-50">Tipo</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
@@ -140,7 +140,9 @@ const FormFour = forwardRef(function FormFour(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Ano de fabricação</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Ano de fabricação
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -156,7 +158,7 @@ const FormFour = forwardRef(function FormFour(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Modelo</FormLabel>
+                <FormLabel className="text-zinc-50">Modelo</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -172,7 +174,7 @@ const FormFour = forwardRef(function FormFour(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Capacidade</FormLabel>
+                <FormLabel className="text-zinc-50">Capacidade</FormLabel>
                 <FormControl>
                   <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
                 </FormControl>

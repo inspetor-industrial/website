@@ -129,7 +129,7 @@ const FormTwentyThree = forwardRef(function FormTwentyThree(
           name="observationsPowerSupply"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}

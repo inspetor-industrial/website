@@ -167,7 +167,9 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="isRegularizedAccordingToASME1"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Regularizado conforme ASME I?</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Regularizado conforme ASME I?
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -217,7 +219,9 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="totalBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TOTAL DE MEDIDAS TOMADAS:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                TOTAL DE MEDIDAS TOMADAS:
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -232,7 +236,7 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="meanBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>MÉDIA DETERMINADA:</FormLabel>
+              <FormLabel className="text-zinc-50">MÉDIA DETERMINADA:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -247,7 +251,9 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="thicknessProvidedByManufacturerBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESPESSURA FORNECIDA PELO FABRICANTE:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESPESSURA FORNECIDA PELO FABRICANTE:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -267,7 +273,7 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="corrosionRateBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TAXA DE CORROSÃO:</FormLabel>
+              <FormLabel className="text-zinc-50">TAXA DE CORROSÃO:</FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -287,7 +293,9 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="allowableThicknessBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -307,7 +315,7 @@ const FormThirtyTwo = forwardRef(function FormThirtyTwo(
           name="photosBodyExaminationA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

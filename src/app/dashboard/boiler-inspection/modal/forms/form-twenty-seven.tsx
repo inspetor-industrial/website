@@ -125,7 +125,7 @@ const FormTwentySeven = forwardRef(function FormTwentySeven(
           name="observationsGauge"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
@@ -141,7 +141,7 @@ const FormTwentySeven = forwardRef(function FormTwentySeven(
           name="gaugePhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos:</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos:</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

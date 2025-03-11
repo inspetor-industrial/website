@@ -70,7 +70,7 @@ const FormTwo = forwardRef(function FormTwo(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Data da inspeção</FormLabel>
+                <FormLabel className="text-zinc-50">Data da inspeção</FormLabel>
                 <FormControl>
                   <ConfigProvider locale={defaultLocaleForAntd}>
                     <DatePicker
@@ -98,7 +98,9 @@ const FormTwo = forwardRef(function FormTwo(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Horário de início</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Horário de início
+                </FormLabel>
                 <FormControl>
                   <ConfigProvider locale={defaultLocaleForAntd}>
                     <TimePicker
@@ -129,7 +131,9 @@ const FormTwo = forwardRef(function FormTwo(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Horário do término</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Horário do término
+                </FormLabel>
                 <FormControl>
                   <ConfigProvider locale={defaultLocaleForAntd}>
                     <TimePicker
@@ -159,7 +163,9 @@ const FormTwo = forwardRef(function FormTwo(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Validade da inspeção</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Validade da inspeção
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -174,7 +180,9 @@ const FormTwo = forwardRef(function FormTwo(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Data da próxima inspeção</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Data da próxima inspeção
+                </FormLabel>
                 <FormControl>
                   <ConfigProvider locale={defaultLocaleForAntd}>
                     <DatePicker

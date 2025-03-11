@@ -61,7 +61,7 @@ const FormEleven = forwardRef(function FormEleven(
           name="observationsExamPerformed"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -76,7 +76,9 @@ const FormEleven = forwardRef(function FormEleven(
           name="record"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do prontuário</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do prontuário
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -98,7 +100,9 @@ const FormEleven = forwardRef(function FormEleven(
           name="book"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do prontuário</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do prontuário
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

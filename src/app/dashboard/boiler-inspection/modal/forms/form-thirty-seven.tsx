@@ -66,7 +66,9 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
           name="deadlineForNextInspection"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>PRAZO PARA EXECUÇÃO:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                PRAZO PARA EXECUÇÃO:
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -81,7 +83,7 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
           name="nrItemsThatNotBeingMet"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabel className="text-zinc-50">
                 ITENS DESTA NR QUE NÃO ESTÃO SENDO ATENDIDOS:
               </FormLabel>
               <FormControl>
@@ -98,7 +100,9 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
           name="immediateMeasuresNecessary"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>PROVIDÊNCIAS IMEDIATAS NECESSÁRIAS:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                PROVIDÊNCIAS IMEDIATAS NECESSÁRIAS:
+              </FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -113,7 +117,9 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
           name="necessaryRecommendations"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>RECOMENDAÇÕES NECESSÁRIAS:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                RECOMENDAÇÕES NECESSÁRIAS:
+              </FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -128,7 +134,7 @@ const FormThirtySeven = forwardRef(function FormThirtySeven(
           name="canBeOperateNormally"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
+              <FormLabel className="text-zinc-50">
                 A CALDEIRA INSPECIONADA PODE SER UTILIZADA NORMALMENTE?
               </FormLabel>
               <FormControl>

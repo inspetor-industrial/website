@@ -65,7 +65,7 @@ const FormFifteen = forwardRef(function FormFifteen(
           name="observationsInternalExams"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -80,7 +80,9 @@ const FormFifteen = forwardRef(function FormFifteen(
           name="tubes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do tubo</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do tubo
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -102,7 +104,9 @@ const FormFifteen = forwardRef(function FormFifteen(
           name="furnaceInternalExaminations"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto da fornalha</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto da fornalha
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -124,7 +128,9 @@ const FormFifteen = forwardRef(function FormFifteen(
           name="internalBoiler"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do exame interno da caldeira</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do exame interno da caldeira
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -146,7 +152,9 @@ const FormFifteen = forwardRef(function FormFifteen(
           name="extraInternalBoilerPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar fotos extras</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar fotos extras
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

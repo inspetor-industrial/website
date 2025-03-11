@@ -142,7 +142,9 @@ const FormTwentySix = forwardRef(function FormTwentySix(
           name="quantityOfValves"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Selecione a quantidade de válvula:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Selecione a quantidade de válvula:
+              </FormLabel>
               <FormControl>
                 <Select
                   value={field.value}
@@ -173,7 +175,9 @@ const FormTwentySix = forwardRef(function FormTwentySix(
               name="valve1.calibrationOrderNumber"
               render={({ field }) => (
                 <FormItem className="mt-0">
-                  <FormLabel>N° de ordem de calibração:</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    N° de ordem de calibração:
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -187,7 +191,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve1.diameter"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Diâmetro:</FormLabel>
+                    <FormLabel className="text-zinc-50">Diâmetro:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.pol} />
                     </FormControl>
@@ -200,7 +204,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve1.flow"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Vazão:</FormLabel>
+                    <FormLabel className="text-zinc-50">Vazão:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.kgvPerH} />
                     </FormControl>
@@ -258,7 +262,9 @@ const FormTwentySix = forwardRef(function FormTwentySix(
               name="valve2.calibrationOrderNumber"
               render={({ field }) => (
                 <FormItem className="mt-0">
-                  <FormLabel>N° de ordem de calibração:</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    N° de ordem de calibração:
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -272,7 +278,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve2.diameter"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Diâmetro:</FormLabel>
+                    <FormLabel className="text-zinc-50">Diâmetro:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.pol} />
                     </FormControl>
@@ -285,7 +291,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve2.flow"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Vazão:</FormLabel>
+                    <FormLabel className="text-zinc-50">Vazão:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.kgvPerH} />
                     </FormControl>
@@ -343,7 +349,9 @@ const FormTwentySix = forwardRef(function FormTwentySix(
               name="valve3.calibrationOrderNumber"
               render={({ field }) => (
                 <FormItem className="mt-0">
-                  <FormLabel>N° de ordem de calibração:</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    N° de ordem de calibração:
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -357,7 +365,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve3.diameter"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Diâmetro:</FormLabel>
+                    <FormLabel className="text-zinc-50">Diâmetro:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.pol} />
                     </FormControl>
@@ -370,7 +378,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
                 name="valve3.flow"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Vazão:</FormLabel>
+                    <FormLabel className="text-zinc-50">Vazão:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.kgvPerH} />
                     </FormControl>
@@ -422,7 +430,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
           name="valvePhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos:</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos:</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -444,7 +452,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
           render={({ field }) => {
             return (
               <FormItem className="flex flex-col">
-                <FormLabel>
+                <FormLabel className="text-zinc-50">
                   Existe redundância de válvula de segurança?
                 </FormLabel>
                 <FormControl>
@@ -495,7 +503,7 @@ const FormTwentySix = forwardRef(function FormTwentySix(
           name="observationsValves"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>

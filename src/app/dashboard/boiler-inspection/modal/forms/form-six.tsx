@@ -108,7 +108,9 @@ const FormSix = forwardRef(function FormSix(
           name="heatingSurface"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Superfície de aquecimento</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Superfície de aquecimento
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.m2} />
               </FormControl>
@@ -123,7 +125,7 @@ const FormSix = forwardRef(function FormSix(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Tipo da fornalha</FormLabel>
+                <FormLabel className="text-zinc-50">Tipo da fornalha</FormLabel>
                 <FormControl>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -155,7 +157,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceWidth"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Largura</FormLabel>
+                    <FormLabel className="text-zinc-50">Largura</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>
@@ -169,7 +171,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceLength"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Comprimento</FormLabel>
+                    <FormLabel className="text-zinc-50">Comprimento</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>
@@ -183,7 +185,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceHeight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Altura</FormLabel>
+                    <FormLabel className="text-zinc-50">Altura</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>
@@ -203,7 +205,9 @@ const FormSix = forwardRef(function FormSix(
               render={({ field }) => {
                 return (
                   <FormItem className="mb-2">
-                    <FormLabel>Informações a serem preenchidas</FormLabel>
+                    <FormLabel className="text-zinc-50">
+                      Informações a serem preenchidas
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value ?? 'cal'}
@@ -237,7 +241,7 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceWidth"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Largura</FormLabel>
+                      <FormLabel className="text-zinc-50">Largura</FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -251,7 +255,9 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceLength"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Comprimento</FormLabel>
+                      <FormLabel className="text-zinc-50">
+                        Comprimento
+                      </FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -265,7 +271,7 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceHeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Altura</FormLabel>
+                      <FormLabel className="text-zinc-50">Altura</FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -283,7 +289,7 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceDiameter"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Diâmetro</FormLabel>
+                      <FormLabel className="text-zinc-50">Diâmetro</FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -297,7 +303,7 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceHeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Altura</FormLabel>
+                      <FormLabel className="text-zinc-50">Altura</FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -315,7 +321,7 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceDiameter"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Diâmetro</FormLabel>
+                      <FormLabel className="text-zinc-50">Diâmetro</FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -329,7 +335,9 @@ const FormSix = forwardRef(function FormSix(
                   name="furnaceLength"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Comprimento</FormLabel>
+                      <FormLabel className="text-zinc-50">
+                        Comprimento
+                      </FormLabel>
                       <FormControl>
                         <InputWithSuffix {...field} suffix={units.mm} />
                       </FormControl>
@@ -349,7 +357,9 @@ const FormSix = forwardRef(function FormSix(
               name="tubeDiameterFurnace"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel>Diâmetro do tubo da fornalha</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    Diâmetro do tubo da fornalha
+                  </FormLabel>
                   <FormControl>
                     <InputWithSuffix {...field} suffix={units.pol} />
                   </FormControl>
@@ -363,7 +373,9 @@ const FormSix = forwardRef(function FormSix(
               name="tubeThicknessFurnace"
               render={({ field }) => (
                 <FormItem className="mb-2">
-                  <FormLabel>Espessura do tubo da fornalha</FormLabel>
+                  <FormLabel className="text-zinc-50">
+                    Espessura do tubo da fornalha
+                  </FormLabel>
                   <FormControl>
                     <InputWithSuffix {...field} suffix={units.mm} />
                   </FormControl>
@@ -379,7 +391,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceWidth"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Largura</FormLabel>
+                    <FormLabel className="text-zinc-50">Largura</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>
@@ -393,7 +405,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceLength"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Comprimento</FormLabel>
+                    <FormLabel className="text-zinc-50">Comprimento</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>
@@ -407,7 +419,7 @@ const FormSix = forwardRef(function FormSix(
                 name="furnaceHeight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Altura</FormLabel>
+                    <FormLabel className="text-zinc-50">Altura</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.mm} />
                     </FormControl>

@@ -115,7 +115,7 @@ const FormTwentyOne = forwardRef(function FormTwentyOne(
           name="observationsInjector"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>

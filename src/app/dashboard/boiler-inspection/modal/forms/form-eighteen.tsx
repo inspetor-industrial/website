@@ -68,7 +68,9 @@ const FormEighteen = forwardRef(function FormEighteen(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Número de ordem de calibração</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Número de ordem de calibração
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -83,7 +85,7 @@ const FormEighteen = forwardRef(function FormEighteen(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Marca</FormLabel>
+                <FormLabel className="text-zinc-50">Marca</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -100,7 +102,7 @@ const FormEighteen = forwardRef(function FormEighteen(
             name="diameterPressureGauge"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Diâmetro</FormLabel>
+                <FormLabel className="text-zinc-50">Diâmetro</FormLabel>
                 <FormControl>
                   <InputWithSuffix {...field} suffix={units.pol} />
                 </FormControl>
@@ -115,7 +117,7 @@ const FormEighteen = forwardRef(function FormEighteen(
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Capacidade</FormLabel>
+                  <FormLabel className="text-zinc-50">Capacidade</FormLabel>
                   <FormControl>
                     <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
                   </FormControl>
@@ -131,7 +133,9 @@ const FormEighteen = forwardRef(function FormEighteen(
           name="photosGauge"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do manômetro</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do manômetro
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

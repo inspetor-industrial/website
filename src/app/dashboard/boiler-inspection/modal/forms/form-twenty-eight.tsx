@@ -127,7 +127,7 @@ const FormTwentyEight = forwardRef(function FormTwentyEight(
           name="observationDischarge"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
@@ -143,7 +143,7 @@ const FormTwentyEight = forwardRef(function FormTwentyEight(
           name="dischargePhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos:</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos:</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

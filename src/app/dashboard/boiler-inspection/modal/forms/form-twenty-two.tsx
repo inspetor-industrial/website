@@ -86,7 +86,9 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
           name="quantityOfBombs"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Selecione a quantidade de bombas:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Selecione a quantidade de bombas:
+              </FormLabel>
               <FormControl>
                 <Select
                   value={field.value}
@@ -116,7 +118,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.mark"
               render={({ field }) => (
                 <FormItem className="mt-0">
-                  <FormLabel>Marca:</FormLabel>
+                  <FormLabel className="text-zinc-50">Marca:</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -129,7 +131,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.stages"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Estágios:</FormLabel>
+                  <FormLabel className="text-zinc-50">Estágios:</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -142,7 +144,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.photos"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Fotos:</FormLabel>
+                  <FormLabel className="text-zinc-50">Fotos:</FormLabel>
                   <FormControl>
                     <DocumentField
                       isOnModal
@@ -164,7 +166,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
                 name="bomb1.model"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Modelo:</FormLabel>
+                    <FormLabel className="text-zinc-50">Modelo:</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -177,7 +179,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
                 name="bomb1.potency"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Potência:</FormLabel>
+                    <FormLabel className="text-zinc-50">Potência:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.cv} />
                     </FormControl>
@@ -199,7 +201,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.mark"
               render={({ field }) => (
                 <FormItem className="mt-0">
-                  <FormLabel>Marca:</FormLabel>
+                  <FormLabel className="text-zinc-50">Marca:</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -212,7 +214,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.stages"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Estágios:</FormLabel>
+                  <FormLabel className="text-zinc-50">Estágios:</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -225,7 +227,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
               name="bomb1.photos"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Fotos:</FormLabel>
+                  <FormLabel className="text-zinc-50">Fotos:</FormLabel>
                   <FormControl>
                     <DocumentField
                       isOnModal
@@ -247,7 +249,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
                 name="bomb1.model"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Modelo:</FormLabel>
+                    <FormLabel className="text-zinc-50">Modelo:</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -260,7 +262,7 @@ const FormTwentyTwo = forwardRef(function FormTwentyTwo(
                 name="bomb1.potency"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Potência:</FormLabel>
+                    <FormLabel className="text-zinc-50">Potência:</FormLabel>
                     <FormControl>
                       <InputWithSuffix {...field} suffix={units.cv} />
                     </FormControl>

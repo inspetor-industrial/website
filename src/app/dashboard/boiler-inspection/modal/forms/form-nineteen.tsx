@@ -112,7 +112,7 @@ const FormNineteen = forwardRef(function FormNineteen(
           name="observationsPressureGauge"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações</FormLabel>
+              <FormLabel className="text-zinc-50">Observações</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>

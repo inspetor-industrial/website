@@ -95,7 +95,7 @@ const FormTwentyFour = forwardRef(function FormTwentyFour(
           name="levelIndicatorMark"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Marca</FormLabel>
+              <FormLabel className="text-zinc-50">Marca</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -110,7 +110,9 @@ const FormTwentyFour = forwardRef(function FormTwentyFour(
           name="levelIndicatorGlassLength"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comprimento do vidro</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Comprimento do vidro
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} />
               </FormControl>
@@ -125,7 +127,7 @@ const FormTwentyFour = forwardRef(function FormTwentyFour(
           name="levelIndicatorGlassDiameter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro do vidro</FormLabel>
+              <FormLabel className="text-zinc-50">Diâmetro do vidro</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.pol} />
               </FormControl>
@@ -140,7 +142,7 @@ const FormTwentyFour = forwardRef(function FormTwentyFour(
           name="levelIndicatorPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos:</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos:</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

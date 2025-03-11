@@ -130,7 +130,9 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="totalBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TOTAL DE MEDIDAS TOMADAS:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                TOTAL DE MEDIDAS TOMADAS:
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -145,7 +147,7 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="meanBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>MÉDIA DETERMINADA:</FormLabel>
+              <FormLabel className="text-zinc-50">MÉDIA DETERMINADA:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -160,7 +162,9 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="thicknessProvidedByManufacturerBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESPESSURA FORNECIDA PELO FABRICANTE:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESPESSURA FORNECIDA PELO FABRICANTE:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -180,7 +184,7 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="corrosionRateBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TAXA DE CORROSÃO:</FormLabel>
+              <FormLabel className="text-zinc-50">TAXA DE CORROSÃO:</FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -200,7 +204,9 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="allowableThicknessBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -220,7 +226,7 @@ const FormThirtyFour = forwardRef(function FormThirtyFour(
           name="photosBodyExaminationC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

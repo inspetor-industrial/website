@@ -138,7 +138,9 @@ const FormThirtyOne = forwardRef(function FormThirtyOne(
           name="pressure"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Pressão de prova aplicada:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Pressão de prova aplicada:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
               </FormControl>
@@ -152,7 +154,7 @@ const FormThirtyOne = forwardRef(function FormThirtyOne(
           name="duration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tempo:</FormLabel>
+              <FormLabel className="text-zinc-50">Tempo:</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.min} />
               </FormControl>
@@ -166,7 +168,7 @@ const FormThirtyOne = forwardRef(function FormThirtyOne(
           name="observationsAccumulation"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}

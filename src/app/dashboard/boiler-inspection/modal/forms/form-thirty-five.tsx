@@ -179,7 +179,9 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="totalBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TOTAL DE MEDIDAS TOMADAS:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                TOTAL DE MEDIDAS TOMADAS:
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -194,7 +196,7 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="meanBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>MÉDIA DETERMINADA:</FormLabel>
+              <FormLabel className="text-zinc-50">MÉDIA DETERMINADA:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -209,7 +211,9 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="thicknessProvidedByManufacturerBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESPESSURA FORNECIDA PELO FABRICANTE:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESPESSURA FORNECIDA PELO FABRICANTE:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} type="number" />
               </FormControl>
@@ -224,7 +228,7 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="corrosionRateBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>TAXA DE CORROSÃO:</FormLabel>
+              <FormLabel className="text-zinc-50">TAXA DE CORROSÃO:</FormLabel>
               <FormControl>
                 <InputWithSuffix
                   {...field}
@@ -243,7 +247,9 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="allowableThicknessBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                ESP. MÍN. ADMITIDA PARA A PRESSÃO DE SERV.:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.mm} type="number" />
               </FormControl>
@@ -258,7 +264,7 @@ const FormThirtyFive = forwardRef(function FormThirtyFive(
           name="photosBodyExaminationD"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

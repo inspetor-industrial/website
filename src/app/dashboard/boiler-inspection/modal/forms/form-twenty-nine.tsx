@@ -128,7 +128,7 @@ const FormTwentyNine = forwardRef(function FormTwentyNine(
           name="ph"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>PH da água:</FormLabel>
+              <FormLabel className="text-zinc-50">PH da água:</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.ph} />
               </FormControl>
@@ -142,7 +142,7 @@ const FormTwentyNine = forwardRef(function FormTwentyNine(
           name="waterPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fotos:</FormLabel>
+              <FormLabel className="text-zinc-50">Fotos:</FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal
@@ -163,7 +163,7 @@ const FormTwentyNine = forwardRef(function FormTwentyNine(
           name="observationsWater"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}

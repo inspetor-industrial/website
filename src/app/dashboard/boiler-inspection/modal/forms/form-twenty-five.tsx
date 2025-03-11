@@ -126,7 +126,7 @@ const FormTwentyFive = forwardRef(function FormTwentyFive(
           name="observationsLevelIndicator"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}

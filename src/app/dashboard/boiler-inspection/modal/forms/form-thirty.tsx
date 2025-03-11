@@ -140,7 +140,9 @@ const FormThirty = forwardRef(function FormThirty(
           name="pressure"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Pressão de prova aplicada:</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Pressão de prova aplicada:
+              </FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.kgfPerCm2} />
               </FormControl>
@@ -154,7 +156,7 @@ const FormThirty = forwardRef(function FormThirty(
           name="duration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tempo:</FormLabel>
+              <FormLabel className="text-zinc-50">Tempo:</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.min} />
               </FormControl>
@@ -168,7 +170,7 @@ const FormThirty = forwardRef(function FormThirty(
           name="procedure"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Procedimento:</FormLabel>
+              <FormLabel className="text-zinc-50">Procedimento:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
@@ -185,7 +187,7 @@ const FormThirty = forwardRef(function FormThirty(
           name="observationsHydrostatic"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}

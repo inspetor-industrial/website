@@ -75,7 +75,9 @@ const FormTwenty = forwardRef(function FormTwenty(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Número de série do injetor</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Número de série do injetor
+                </FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -90,7 +92,7 @@ const FormTwenty = forwardRef(function FormTwenty(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Marca</FormLabel>
+                <FormLabel className="text-zinc-50">Marca</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -106,7 +108,7 @@ const FormTwenty = forwardRef(function FormTwenty(
           name="diameterInjector"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Diâmetro</FormLabel>
+              <FormLabel className="text-zinc-50">Diâmetro</FormLabel>
               <FormControl>
                 <InputWithSuffix {...field} suffix={units.pol} />
               </FormControl>
@@ -121,7 +123,9 @@ const FormTwenty = forwardRef(function FormTwenty(
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Tipo do combustível</FormLabel>
+                <FormLabel className="text-zinc-50">
+                  Tipo do combustível
+                </FormLabel>
                 <FormControl>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -146,7 +150,9 @@ const FormTwenty = forwardRef(function FormTwenty(
           name="injectorPhotos"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anexar foto do injetor</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Anexar foto do injetor
+              </FormLabel>
               <FormControl>
                 <DocumentField
                   isOnModal

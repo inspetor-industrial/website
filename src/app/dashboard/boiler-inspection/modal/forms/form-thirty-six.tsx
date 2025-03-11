@@ -64,7 +64,9 @@ const FormThirtySix = forwardRef(function FormThirtySix(
           name="canBeMaintained"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Manutenção pode ser realizada?</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Manutenção pode ser realizada?
+              </FormLabel>
               <FormControl>
                 <div className="flex space-x-2">
                   <div className="space-x-1 flex items-center">
@@ -114,7 +116,9 @@ const FormThirtySix = forwardRef(function FormThirtySix(
           name="mustBeIncreasedTo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Manutenção pode ser realizada?</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Manutenção pode ser realizada?
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -129,7 +133,9 @@ const FormThirtySix = forwardRef(function FormThirtySix(
           name="mustBeDecreasedTo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Manutenção pode ser realizada?</FormLabel>
+              <FormLabel className="text-zinc-50">
+                Manutenção pode ser realizada?
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -144,7 +150,7 @@ const FormThirtySix = forwardRef(function FormThirtySix(
           name="observationsPMTA"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Observações:</FormLabel>
+              <FormLabel className="text-zinc-50">Observações:</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>

@@ -1,12 +1,27 @@
 import { makeOptionValue } from './combobox-options'
 
 export function parseBoilerReportInspection(boilerReport: any) {
-  if (boilerReport.client) {
-    boilerReport.client = makeOptionValue(boilerReport.client)
+  if (boilerReport.type) {
+    boilerReport.inspectionType = boilerReport.type
   }
 
-  if (boilerReport.responsible) {
-    boilerReport.responsible = makeOptionValue(boilerReport.responsible)
+  if (boilerReport.client && typeof boilerReport.client === 'object') {
+    boilerReport.client = makeOptionValue(boilerReport.client, [
+      'id',
+      'name',
+      'cnpjOrCpf',
+    ])
+  }
+
+  if (
+    boilerReport.responsible &&
+    typeof boilerReport.responsible === 'object'
+  ) {
+    boilerReport.responsible = makeOptionValue(boilerReport.responsible, [
+      'id',
+      'name',
+      'stateRegistry',
+    ])
   }
 
   if (boilerReport.operator) {
@@ -16,6 +31,9 @@ export function parseBoilerReportInspection(boilerReport: any) {
       boilerReport.operator.isAbleToOperateWithNR13
 
     boilerReport.certificate = boilerReport.operator.certificate
+    if (typeof boilerReport.certificate === 'string') {
+      boilerReport.certificate = []
+    }
 
     boilerReport.provisionsForOperator =
       boilerReport.operator.provisionsForOperator

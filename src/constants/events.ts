@@ -94,7 +94,10 @@ export const events = {
       generateReport: buildEventName('boiler-inspection-generate-report'),
       navigate: {
         to: {
-          update: buildEventName('boiler-inspection-navigate-to-update'),
+          update: buildEventName('boiler-inspection-navigate-table-to-update'),
+          updateByToolbar: buildEventName(
+            'boiler-inspection-navigate-toolbar-to-update',
+          ),
           detail: buildEventName('boiler-inspection-navigate-to-detail'),
           register: buildEventName('boiler-inspection-navigate-to-register'),
           preview: buildEventName('boiler-inspection-navigate-to-preview'),

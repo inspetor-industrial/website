@@ -41,7 +41,7 @@ export function Toolbar() {
         </Button>
       </div>
 
-      <BoilerInspectionModal ref={modalRef} />
+      <BoilerInspectionModal isInToolbar ref={modalRef} />
     </div>
   )
 }

@@ -22,6 +22,7 @@ import {
 import { Textarea } from '@inspetor/components/ui/textarea'
 import { getUsersOptions } from '@inspetor/http/firebase/user/combobox/get-users'
 import { makeOptionObject } from '@inspetor/utils/combobox-options'
+import { documentValidator } from '@inspetor/utils/zod-validations/document-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -30,35 +31,7 @@ const schema = z.object({
   responsible: z.string(),
   operatorName: z.string(),
   isAbleToOperateWithNR13: z.string(),
-  certificate: z
-    .array(
-      z.object({
-        name: z.string().nonempty("O campo 'name' não pode estar vazio."),
-        downloadUrl: z.string().nonempty("O campo 'url' não pode estar vazio."),
-        type: z.string().nonempty("O campo 'type' não pode estar vazio."),
-
-        size: z.number(),
-
-        createdAt: z.number().refine((val) => !isNaN(val), {
-          message: "O campo 'createdAt' deve ser um número válido.",
-        }),
-        createdBy: z
-          .string()
-          .nonempty("O campo 'createdBy' não pode estar vazio."),
-        updatedAt: z.number().refine((val) => !isNaN(val), {
-          message: "O campo 'updatedAt' deve ser um número válido.",
-        }),
-        updatedBy: z
-          .string()
-          .nonempty("O campo 'updatedBy' não pode estar vazio."),
-
-        id: z.string().nonempty("O campo 'id' não pode estar vazio."),
-        companyOfUser: z
-          .string()
-          .nonempty("O campo 'companyOfUser' não pode estar vazio."),
-      }),
-    )
-    .optional(),
+  certificate: documentValidator,
   provisionsForOperator: z.string().optional(),
   observations: z.string().optional(),
 })
@@ -139,7 +112,10 @@ const FormThree = forwardRef(function FormThree(
 
         <div className="space-y-0.5">
           <Label variant="form">Registro nacional do engenheiro</Label>
-          <Input value={responsible.split('|').at(2) ?? ''} disabled />
+          <Input
+            value={responsible.toString().split('|').at(2) ?? ''}
+            disabled
+          />
         </div>
 
         <FormField

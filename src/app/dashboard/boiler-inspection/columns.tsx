@@ -71,11 +71,14 @@ export const columns: ColumnDef<BoilerInspection>[] = [
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem
-            onClick={() =>
+            onClick={(event) => {
               dispatchEvent(events.models.boilerInspection.navigate.to.update, {
                 boilerInspectionId: original.id,
+                boiler: original,
               })
-            }
+
+              event.stopPropagation()
+            }}
           >
             <Pencil className="size-4" />
             Editar

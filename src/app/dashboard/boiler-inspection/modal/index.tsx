@@ -19,22 +19,26 @@ import { firebaseModels } from '@inspetor/constants/firebase-models'
 import { toast } from '@inspetor/hooks/use-toast'
 import { firestore } from '@inspetor/lib/firebase/client'
 import { blankFunction } from '@inspetor/utils/blank-function'
-import { makeOptionObject } from '@inspetor/utils/combobox-options'
+import {
+  makeOptionObject,
+  makeOptionValue,
+} from '@inspetor/utils/combobox-options'
 import { generateSubstrings } from '@inspetor/utils/generate-substrings'
 import { parseBoilerReportInspection } from '@inspetor/utils/parse-boiler-report-inspection'
 import { replaceUndefinedValues } from '@inspetor/utils/replace-undefined-values'
 import { runSafety } from '@inspetor/utils/run-safety'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   collection,
   doc,
   getCountFromServer,
-  getDocFromServer,
   query,
   setDoc,
   Timestamp,
 } from 'firebase/firestore'
 import { merge } from 'lodash'
 import { useSession } from 'next-auth/react'
+import { parseAsInteger, parseAsString, useQueryState } from 'nuqs'
 import {
   forwardRef,
   useEffect,
@@ -48,7 +52,9 @@ import { FormStepper } from './form-stepper'
 import { forms } from './forms'
 import { FormRef } from './forms/form'
 
-type BoilerInspectionModalProps = {}
+type BoilerInspectionModalProps = {
+  isInToolbar?: boolean
+}
 
 export type BoilerInspectionModalRef = {
   open: () => void
@@ -56,9 +62,14 @@ export type BoilerInspectionModalRef = {
 }
 
 const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
-  props: BoilerInspectionModalProps,
+  { isInToolbar = false, ...props }: BoilerInspectionModalProps,
   ref,
 ) {
+  const [search] = useQueryState('search', parseAsString.withDefault(''))
+  const [currentPage] = useQueryState('page', parseAsInteger.withDefault(1))
+
+  const queryClient = useQueryClient()
+
   const [isModalOpened, setIsModalOpened] = useState(false)
   const [currentFormIndex, setCurrentFormIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -91,6 +102,7 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
 
   function clearBoilerReport() {
     setBoilerReportState({})
+    setBoilerReportId(null)
   }
 
   const formRef = useRef<FormRef | null>(null)
@@ -158,17 +170,27 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
           )
         : formRef.current.getValues()
 
-      // if (valuesToUpdate.startTimeInspection) {
-      //   valuesToUpdate.startTimeInspection = await runSafety(() => {
-      //     return valuesToUpdate.startTimeInspection.toDate().getTime()
-      //   })
-      // }
+      if (valuesToUpdate.startTimeInspection) {
+        valuesToUpdate.startTimeInspection = await runSafety(
+          () => {
+            return valuesToUpdate.startTimeInspection.format('HH:mm')
+          },
+          () => {
+            return valuesToUpdate.startTimeInspection
+          },
+        )
+      }
 
-      // if (valuesToUpdate.endTimeInspection) {
-      //   valuesToUpdate.endTimeInspection = await runSafety(() => {
-      //     return valuesToUpdate.endTimeInspection.toDate().getTime()
-      //   })
-      // }
+      if (valuesToUpdate.endTimeInspection) {
+        valuesToUpdate.endTimeInspection = await runSafety(
+          () => {
+            return valuesToUpdate.endTimeInspection.format('HH:mm')
+          },
+          () => {
+            return valuesToUpdate.endTimeInspection
+          },
+        )
+      }
 
       if (typeof valuesToUpdate.client === 'string') {
         valuesToUpdate.client = makeOptionObject(valuesToUpdate.client, [
@@ -240,32 +262,74 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
         })
 
         setIsSubmitting(false)
+        queryClient.invalidateQueries({
+          queryKey: ['boiler-inspection', search, currentPage],
+        })
         return
       }
 
       setCurrentFormIndex((prevIndex) => prevIndex + 1)
     } finally {
+      queryClient.invalidateQueries({
+        queryKey: ['boiler-inspection', search, currentPage],
+      })
       setIsSubmitting(false)
     }
   }
 
+  // useEffect(() => {
+  //   function handleOpenModalByEvent() {
+  //     setIsModalOpened(true)
+  //   }
+
+  //   window.addEventListener(
+  //     events.models.boilerInspection.navigate.to.register,
+  //     handleOpenModalByEvent,
+  //   )
+
+  //   return () => {
+  //     window.removeEventListener(
+  //       events.models.boilerInspection.navigate.to.register,
+  //       handleOpenModalByEvent,
+  //     )
+  //   }
+  // }, [])
+
   useEffect(() => {
-    function handleOpenModalByEvent() {
+    function handleOpenModalByEvent(event: Event) {
+      const { boilerInspectionId, boiler } = (event as CustomEvent).detail
+
+      setBoilerReportId(boilerInspectionId)
+      setBoilerReportState({
+        ...boiler,
+        client:
+          typeof boiler.client === 'object'
+            ? makeOptionValue(boiler.client, ['id', 'name', 'cnpjOrCpf'])
+            : boiler.client,
+        responsible:
+          typeof boiler.responsible === 'object'
+            ? makeOptionValue(boiler.responsible, [
+                'id',
+                'name',
+                'stateRegistry',
+              ])
+            : boiler.responsible,
+      })
+
       setIsModalOpened(true)
     }
 
-    window.addEventListener(
-      events.models.boilerInspection.navigate.to.register,
-      handleOpenModalByEvent,
-    )
+    let eventName = events.models.boilerInspection.navigate.to.update
+    if (isInToolbar) {
+      eventName = events.models.boilerInspection.navigate.to.updateByToolbar
+    }
+
+    window.addEventListener(eventName, handleOpenModalByEvent)
 
     return () => {
-      window.removeEventListener(
-        events.models.boilerInspection.navigate.to.register,
-        handleOpenModalByEvent,
-      )
+      window.removeEventListener(eventName, handleOpenModalByEvent)
     }
-  }, [])
+  }, [isInToolbar])
 
   useImperativeHandle(ref, () => {
     return {
@@ -281,9 +345,8 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
         if (!isOpen) {
           clearBoilerReport()
           setCurrentFormIndex(0)
+          setIsModalOpened(isOpen)
         }
-
-        setIsModalOpened(isOpen)
       }}
       {...props}
     >

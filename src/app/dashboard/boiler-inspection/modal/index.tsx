@@ -192,8 +192,6 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
         )
       }
 
-      console.log('valuesToUpdate', valuesToUpdate)
-
       if (typeof valuesToUpdate.client === 'string') {
         valuesToUpdate.client = makeOptionObject(valuesToUpdate.client, [
           'id',
@@ -264,6 +262,9 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
         })
 
         setIsSubmitting(false)
+        queryClient.invalidateQueries({
+          queryKey: ['boiler-inspection', search, currentPage],
+        })
         return
       }
 
@@ -314,8 +315,6 @@ const BoilerInspectionModal = forwardRef(function BoilerInspectionModal(
               ])
             : boiler.responsible,
       })
-
-      console.log('boiler', boiler)
 
       setIsModalOpened(true)
     }

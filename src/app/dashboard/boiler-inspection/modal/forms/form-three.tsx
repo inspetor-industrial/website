@@ -51,8 +51,6 @@ const FormThree = forwardRef(function FormThree(
     defaultValues,
   })
 
-  console.log('defaultValues', defaultValues)
-
   const responsible = form.watch('responsible') ?? ''
   const isOperatorAbleToOperateWithNR13 = form.watch('isAbleToOperateWithNR13')
 

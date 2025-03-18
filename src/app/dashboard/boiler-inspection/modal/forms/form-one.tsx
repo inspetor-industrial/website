@@ -40,7 +40,6 @@ const FormOne = forwardRef(function FormOne(
   { defaultValues }: FormOneProps,
   ref,
 ) {
-  console.log('defaultValues', defaultValues)
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
     defaultValues,

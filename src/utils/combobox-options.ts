@@ -1,4 +1,14 @@
-export function makeOptionValue(optionValue: Record<string, string>) {
+export function makeOptionValue(
+  optionValue: Record<string, string>,
+  keysBySequence: string[] = [],
+) {
+  if (keysBySequence.length) {
+    return keysBySequence
+      .map((key) => optionValue[key] || '')
+      .filter((opt) => opt)
+      .join('|')
+  }
+
   return Object.keys(optionValue)
     .map((key) => {
       return `${optionValue[key]}`

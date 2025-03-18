@@ -11,6 +11,7 @@ import {
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
 import { dayjsApi, defaultLocaleForAntd } from '@inspetor/lib/dayjs'
+import { buildTimeDate } from '@inspetor/utils/build-time-date'
 import { ConfigProvider, DatePicker, TimePicker } from 'antd'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
@@ -40,10 +41,10 @@ const FormTwo = forwardRef(function FormTwo(
     defaultValues: {
       ...defaultValues,
       startTimeInspection: defaultValues?.startTimeInspection
-        ? dayjsApi(new Date(defaultValues.startTimeInspection))
+        ? dayjsApi(buildTimeDate(defaultValues.startTimeInspection))
         : undefined,
       endTimeInspection: defaultValues?.endTimeInspection
-        ? dayjsApi(new Date(defaultValues.endTimeInspection))
+        ? dayjsApi(buildTimeDate(defaultValues.endTimeInspection))
         : undefined,
     },
   })
@@ -79,6 +80,8 @@ const FormTwo = forwardRef(function FormTwo(
                         format: 'YYYY-MM-DD',
                         type: 'mask',
                       }}
+                      value={dayjsApi(new Date(field.value))}
+                      defaultPickerValue={dayjsApi(new Date(field.value))}
                       pickerValue={dayjsApi(new Date(field.value))}
                       onPickerValueChange={(value) =>
                         field.onChange(value.toDate().getTime())
@@ -191,6 +194,8 @@ const FormTwo = forwardRef(function FormTwo(
                         format: 'YYYY-MM-DD',
                         type: 'mask',
                       }}
+                      value={dayjsApi(new Date(field.value))}
+                      defaultPickerValue={dayjsApi(new Date(field.value))}
                       pickerValue={dayjsApi(new Date(field.value))}
                       onPickerValueChange={(value) =>
                         field.onChange(value.toDate().getTime())

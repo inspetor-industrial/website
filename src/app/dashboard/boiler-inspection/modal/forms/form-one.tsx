@@ -25,7 +25,7 @@ import { z } from 'zod'
 
 const schema = z.object({
   service: z.string().optional().default('Inspeção de Caldeiras'),
-  type: z.string(),
+  inspectionType: z.string(),
   client: z.string(),
   motivation: z.string().optional().default(''),
 })
@@ -40,6 +40,7 @@ const FormOne = forwardRef(function FormOne(
   { defaultValues }: FormOneProps,
   ref,
 ) {
+  console.log('defaultValues', defaultValues)
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
     defaultValues,
@@ -65,6 +66,7 @@ const FormOne = forwardRef(function FormOne(
 
         return {
           ...values,
+          type: values.inspectionType,
           client,
         }
       },
@@ -95,7 +97,7 @@ const FormOne = forwardRef(function FormOne(
           }}
         />
         <FormField
-          name="type"
+          name="inspectionType"
           control={form.control}
           render={({ field }) => {
             return (

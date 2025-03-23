@@ -1,8 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DocumentField } from '@inspetor/components/document-field'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
-import { NrSelect } from '@inspetor/components/nr-select'
-import { TableQuestion } from '@inspetor/components/table-question'
 import {
   Form,
   FormControl,
@@ -12,37 +10,11 @@ import {
   FormMessage,
 } from '@inspetor/components/ui/form'
 import { Input } from '@inspetor/components/ui/input'
-import { Textarea } from '@inspetor/components/ui/textarea'
-import { nrsForBombsSupply } from '@inspetor/constants/nrs'
 import { units } from '@inspetor/constants/units'
 import { documentValidator } from '@inspetor/utils/zod-validations/document-validator'
-import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const tableBombsQuestions = [
-  {
-    question: 'FOI REALIZADO?',
-    answer: '',
-  },
-  {
-    question: 'A BOMBA ENCONTRA-SE FUNCIONANDO NORMALMENTE?',
-    answer: '',
-  },
-  {
-    question: 'É SUFICIENTE PARA SUPORTAR A PRESSÃO DE USO DO EQUIPAMENTO?',
-    answer: '',
-  },
-  {
-    question: 'FOI OBSERVADA ALGUMA ANOMALIA CAPAZ DE PREJUDICAR A SEGURANÇA?',
-    answer: '',
-  },
-  {
-    question: 'HOUVE ALGUM OUTRO PROBLEMA RELACIONADO Á PRESSÃO APLICADA?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   levelIndicatorMark: z.string().optional().default(''),

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { waterQualityQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/water-quality-examinations'
 import { DocumentField } from '@inspetor/components/document-field'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
 import { NrSelect } from '@inspetor/components/nr-select'
@@ -19,18 +20,6 @@ import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const waterQuality = [
-  {
-    question: 'Há tratamento de água?',
-    answer: '',
-  },
-  { question: 'O tratamento está sendo feito corretamente?', answer: '' },
-  {
-    question: 'Há sinal de calcificação em partes ou peças?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   waterTests: z
@@ -113,7 +102,7 @@ const FormTwentyNine = forwardRef(function FormTwentyNine(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || waterQuality}
+                  options={field.value || waterQualityQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

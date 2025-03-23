@@ -119,7 +119,7 @@ export type BoilerInspection = {
 
   operator: {
     name: string
-    isAbleToOperateWithNR13: boolean
+    isAbleToOperateWithNR13: string
     certificate?: Document[]
     provisionsForOperator?: string
     observations?: string
@@ -161,7 +161,7 @@ export type BoilerInspection = {
       length: string
 
       material: BoilerBodyMaterial
-      hasCertificateOfManufacturer: boolean
+      hasCertificateOfManufacturer: string
     }
 
     tube: {
@@ -171,9 +171,9 @@ export type BoilerInspection = {
       thickness: string
 
       material: BoilerTubeMaterial
-      hasCertificateOfManufacturer: boolean
+      hasCertificateOfManufacturer: string
 
-      isNaturalOrForced: boolean
+      isNaturalOrForced: string
     }
 
     quantityOfSafetyFuse: string

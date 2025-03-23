@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { pumpsQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/pumps-examinations'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
 import {
@@ -14,29 +15,6 @@ import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const tableBombsQuestions = [
-  {
-    question: 'FOI REALIZADO?',
-    answer: '',
-  },
-  {
-    question: 'A BOMBA ENCONTRA-SE FUNCIONANDO NORMALMENTE?',
-    answer: '',
-  },
-  {
-    question: 'É SUFICIENTE PARA SUPORTAR A PRESSÃO DE USO DO EQUIPAMENTO?',
-    answer: '',
-  },
-  {
-    question: 'FOI OBSERVADA ALGUMA ANOMALIA CAPAZ DE PREJUDICAR A SEGURANÇA?',
-    answer: '',
-  },
-  {
-    question: 'HOUVE ALGUM OUTRO PROBLEMA RELACIONADO Á PRESSÃO APLICADA?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   bombsTests: z
@@ -115,7 +93,7 @@ const FormTwentyThree = forwardRef(function FormTwentyThree(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || tableBombsQuestions}
+                  options={field.value || pumpsQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

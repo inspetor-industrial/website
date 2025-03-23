@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { electricalControlQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/electrical-control-examinations'
 import { DocumentField } from '@inspetor/components/document-field'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
@@ -111,7 +112,7 @@ const FormTwentySeven = forwardRef(function FormTwentySeven(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || eletricalControlMeasurements}
+                  options={field.value || electricalControlQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

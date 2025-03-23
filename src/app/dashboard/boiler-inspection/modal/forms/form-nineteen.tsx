@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { pressureGaugeQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/pressure-gauge-examinations'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
 import {
@@ -34,14 +35,6 @@ type Schema = z.infer<typeof schema>
 type FormNineteenProps = {
   defaultValues?: Record<string, any>
 }
-
-export const measurementSecurityQuestions = [
-  { question: 'O MANÔMETRO FOI CALIBRADO?', answer: '' },
-  { question: 'FUNCIONA NORMALMENTE?', answer: '' },
-  { question: 'HÁ ALGUM PROBLEMA NO MESMO?', answer: '' },
-  { question: 'HÁ SIFÃO PARA PROTEÇÃO DO MECANISMO INTERNO?', answer: '' },
-  { question: 'O VIDRO ENCONTRA-SE COM VISIBILIDADE ADEQUADA?', answer: '' },
-]
 
 const FormNineteen = forwardRef(function FormNineteen(
   { defaultValues }: FormNineteenProps,
@@ -99,7 +92,7 @@ const FormNineteen = forwardRef(function FormNineteen(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || measurementSecurityQuestions}
+                  options={field.value || pressureGaugeQuestions}
                   onChange={field.onChange}
                 />
               </FormControl>

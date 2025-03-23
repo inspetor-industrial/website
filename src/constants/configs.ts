@@ -33,4 +33,9 @@ export const appConfigs = {
 
   applicationName: 'Inspetor Industrial',
   defaultUsername: 'System',
+
+  defaultBoxSize: {
+    width: 290,
+    height: 380,
+  },
 } as const

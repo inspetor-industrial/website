@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { hydrostaticTestQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/hydrostatic-test-examinations'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
@@ -17,30 +18,6 @@ import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const hydrostaticTests = [
-  {
-    question: 'Foi realizado?',
-    answer: '',
-  },
-  { question: 'A bomba encontra-se funcionando normalmente?', answer: '' },
-  {
-    question: 'É suficiente para suportar a pressão de uso do equipamento?',
-    answer: '',
-  },
-  {
-    question: 'Foi observada alguma anomalia capaz de prejudicar a segurança?',
-    answer: '',
-  },
-  {
-    question: 'A caldeira suportou satisfatoriamente a prova?',
-    answer: '',
-  },
-  {
-    question: 'Houve algum outro problema relacionado á pressão aplicada?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   hydrostaticTests: z
@@ -125,7 +102,7 @@ const FormThirty = forwardRef(function FormThirty(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || hydrostaticTests}
+                  options={field.value || hydrostaticTestQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

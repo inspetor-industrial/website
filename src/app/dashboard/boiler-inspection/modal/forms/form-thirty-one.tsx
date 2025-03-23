@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { accumulationTestQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/accumulation-test-examinations'
 import { InputWithSuffix } from '@inspetor/components/input-with-suffix'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
@@ -17,30 +18,6 @@ import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const accumulationTest = [
-  {
-    question: 'Foi realizado?',
-    answer: '',
-  },
-  { question: 'A bomba encontra-se funcionando normalmente?', answer: '' },
-  {
-    question: 'É suficiente para suportar a pressão de uso do equipamento?',
-    answer: '',
-  },
-  {
-    question: 'Foi observada alguma anomalia capaz de prejudicar a segurança?',
-    answer: '',
-  },
-  {
-    question: 'As válvulas suportaram satisfatoriamente a prova?',
-    answer: '',
-  },
-  {
-    question: 'Houve algum outro problema relacionado á pressão aplicada?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   accumulationTests: z
@@ -123,7 +100,7 @@ const FormThirtyOne = forwardRef(function FormThirtyOne(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || accumulationTest}
+                  options={field.value || accumulationTestQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { levelIndicatorQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/level-indicator-examinations'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
 import {
@@ -14,26 +15,6 @@ import { nrValidator } from '@inspetor/utils/zod-validations/nr-validator'
 import { forwardRef, useImperativeHandle } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-export const tableLevelIndicatorQuestions = [
-  {
-    question: 'O CONJUNTO INDICADOR DE NÍVEL ESTÁ EM CONDIÇÕES DE USO?',
-    answer: '',
-  },
-  {
-    question: 'A VÁLVULA DE DESCARGA FUNCIONA NORMALMENTE?',
-    answer: '',
-  },
-  { question: 'HÁ NECESSIDADE DE TROCA DO CONJUNTO?', answer: '' },
-  {
-    question: 'O VIDRO ENCONTRA-SE EM CONDIÇÕES DE USO?',
-    answer: '',
-  },
-  {
-    question: 'AS BORRACHAS DE VEDAÇÃO ENCONTRAM-SE EM CONDIÇÕES DE USO?',
-    answer: '',
-  },
-]
 
 const schema = z.object({
   levelIndicatorTests: z
@@ -112,7 +93,7 @@ const FormTwentyFive = forwardRef(function FormTwentyFive(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || tableLevelIndicatorQuestions}
+                  options={field.value || levelIndicatorQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

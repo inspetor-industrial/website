@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { dischargeSystemQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/discharge-system-examinations'
 import { DocumentField } from '@inspetor/components/document-field'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
@@ -32,23 +33,6 @@ const schema = z.object({
   dischargePhotos: documentValidator,
   observationDischarge: z.string().optional().default(''),
 })
-
-export const dischargeSystemMeasurements = [
-  {
-    question: 'HÁ SISTEMA DE DESCARGA DE FUNDO?',
-    answer: '',
-  },
-  { question: 'HÁ NÚMERO SUFICIENTE DE DESCARGAS?', answer: '' },
-  { question: 'FUNCIONA(M) NORMALMENTE?', answer: '' },
-  {
-    question: 'A(S) DESCARGA(S) É(SÃ0) AUTOMÁTICA(S)?',
-    answer: '',
-  },
-  {
-    question: 'AS DESCARGAS ESTÃO SENDO FEITAS NO TEMPO CORRETO?',
-    answer: '',
-  },
-]
 
 type Schema = z.infer<typeof schema>
 
@@ -113,7 +97,7 @@ const FormTwentyEight = forwardRef(function FormTwentyEight(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || dischargeSystemMeasurements}
+                  options={field.value || dischargeSystemQuestions}
                   onChange={field.onChange}
                   // extraLogicOnChange={handleTableExamsApplyNrsLogic}
                 />

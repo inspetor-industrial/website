@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { injectorQuestions } from '@inspetor/app/dashboard/boiler-inspection/exams/injector-examinations'
 import { NrSelect } from '@inspetor/components/nr-select'
 import { TableQuestion } from '@inspetor/components/table-question'
 import {
@@ -102,7 +103,7 @@ const FormTwentyOne = forwardRef(function FormTwentyOne(
             <FormItem>
               <FormControl>
                 <TableQuestion
-                  options={field.value || securityMeasurementContinuation}
+                  options={field.value || injectorQuestions}
                   onChange={field.onChange}
                 />
               </FormControl>

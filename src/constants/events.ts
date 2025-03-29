@@ -7,6 +7,10 @@ export const events = {
     loginInProgress: buildEventName('login-in-progress'),
     loginFinished: buildEventName('login-finished'),
   },
+  resetPassword: {
+    sending: buildEventName('reset-password-email-sending'),
+    sent: buildEventName('reset-password-email-sent'),
+  },
   contact: {
     sending: buildEventName('contact-email-sending'),
     sent: buildEventName('contact-email-sent'),
@@ -103,6 +107,10 @@ export const events = {
           preview: buildEventName('boiler-inspection-navigate-to-preview'),
         },
       },
+    },
+    reports: {
+      download: buildEventName('report-download'),
+      delete: buildEventName('report-delete'),
     },
   },
 } as const

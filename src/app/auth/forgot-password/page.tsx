@@ -2,24 +2,16 @@ import LoginLogo from '@inspetor/assets/login-logo.png'
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
 } from '@inspetor/components/ui/card'
-import { authOptions } from '@inspetor/lib/auth/next-auth'
 import Image from 'next/image'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
 
-import { SignInForm } from './sign-form'
+import { ForgotPasswordForm } from './sign-form'
 import { SubmitButton } from './submit-button'
 
-export default async function Home() {
-  const session = await getServerSession(authOptions)
-  if (session?.user) {
-    return redirect('/dashboard')
-  }
-
+export default function ForgotPasswordPage() {
   return (
     <div className="flex justify-center items-center h-max">
       <Card className="bg-inspetor-dark-blue-700 shadow-lg border-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -35,13 +27,10 @@ export default async function Home() {
             />
           </CardHeader>
           <div className="px-8 mb-4">
-            <SignInForm />
-            <Link
-              href="/auth/forgot-password"
-              className="text-white text-sm underline p-0"
-            >
-              Esqueci a senha?
-            </Link>
+            <ForgotPasswordForm />
+            <CardDescription className="text-zinc-400 text-sm">
+              Insira seu e-mail para receber um link de redefinição de senha.
+            </CardDescription>
           </div>
           <CardFooter className="justify-end p-6">
             <SubmitButton />

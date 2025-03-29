@@ -1,9 +1,21 @@
 'use client'
 
 import { Button } from '@inspetor/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@inspetor/components/ui/dialog'
+import { Input } from '@inspetor/components/ui/input'
+import { Label } from '@inspetor/components/ui/label'
 import { cn } from '@inspetor/lib/utils'
-import { Briefcase, CircleUserRound } from 'lucide-react'
+import { Briefcase, CircleUserRound, Lock } from 'lucide-react'
 import { parseAsString, useQueryState } from 'nuqs'
+
+import { ChangePasswordModal } from './change-password-modal'
 
 export function MenuButtons() {
   const [currentSection, setCurrentSection] = useQueryState(
@@ -43,6 +55,7 @@ export function MenuButtons() {
         <Briefcase className="size-4" />
         <span className="text-sm">Informações Profissionais</span>
       </Button>
+      <ChangePasswordModal />
       {/* <Button
         variant="outline"
         className={cn(

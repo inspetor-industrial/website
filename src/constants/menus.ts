@@ -2,6 +2,7 @@ import { Optional } from '@inspetor/lib/types/optional'
 import {
   Building2,
   CalendarDays,
+  File,
   HelpCircle,
   List,
   SquareUserRound,
@@ -58,6 +59,11 @@ export function getSidebarMenus(): Array<SidebarMenu> {
           title: 'Calibração de Válvula de Segurança',
           pathname: '/dashboard/valve-calibration',
           icon: GiValve,
+        },
+        {
+          title: 'Relatórios',
+          pathname: '/dashboard/reports',
+          icon: File,
         },
       ],
     },

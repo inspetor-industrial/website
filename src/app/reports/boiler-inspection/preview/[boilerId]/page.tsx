@@ -55,6 +55,7 @@ import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 
 import { Aside } from './components/aside'
+import { DownloadButton } from './components/download-button'
 import { Nrs, NrsContainer } from './components/nrs-container'
 import { PageContainer } from './components/page-container'
 import { PageInfoContainer } from './components/page-info-container'
@@ -213,14 +214,12 @@ export default async function PreviewBoilerPage({
       {!isDownload && (
         <div className="fixed top-4 left-4 space-x-4">
           <BackButton />
-          {/* <DownloadButton /> */}
+          <DownloadButton type="boiler" />
         </div>
       )}
       {!isDownload && <ScrollBar orientation="vertical" />}
 
-      <Spacer />
-
-      <PageContainer breakPage={false}>
+      <PageContainer>
         <h2 className="text-3xl font-semibold mt-10">Relatório de inspeção</h2>
 
         <span className="w-full font-bold italic tracking-tight text-sm">
@@ -1807,9 +1806,7 @@ export default async function PreviewBoilerPage({
             )
           })}
         </NrsContainer>
-      </PageContainer>
 
-      <PageContainer>
         <div className="w-full">
           <PageSubTitle>observações</PageSubTitle>
           <div className="w-full h-fit min-h-24 border border-black p-4">

@@ -84,13 +84,13 @@ const ProgressDownloadDialog = forwardRef(function ProgressDownloadDialog(
 
     try {
       setIsGeneratingPDF(true)
-      let reportAPiUrl = `/generate/calibration/pdf?report_id=${reportId}&calibration_type=${reportType}`
+      let reportApiUrl = `/generate/calibration/pdf?report_id=${reportId}&calibration_type=${reportType}`
 
       if (reportType === 'boiler') {
-        reportAPiUrl = `/generate/boiler-report/pdf?report_id=${reportId}`
+        reportApiUrl = `/generate/boiler-report/pdf?report_id=${reportId}`
       }
 
-      const response = await axiosApi.get(reportAPiUrl, {
+      const response = await axiosApi.get(reportApiUrl, {
         signal: signalController.signal,
       })
 

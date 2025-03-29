@@ -158,7 +158,7 @@ export default async function PreviewBoilerPage({
   const currentYear = reportCreatedAt.getFullYear()
 
   return (
-    <Container className="w-screen max-h-screen pb-4" id="preview-valve-page">
+    <Container className="w-screen max-h-screen pb-4" id="preview-boiler-page">
       <section className="w-full flex overflow-x-hidden overflow-y-clip items-start justify-start">
         <div className="w-full relative flex flex-col h-full justify-between col-span-6">
           <div className="w-full relative">

@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Allow: /institutional
+Allow: /services
+Allow: /contact
+Allow: /auth/sign-in
+Allow: /auth/forgot-password
+Allow: /services/boiler-inspection
+Allow: /services/integrity-inspection
+Allow: /services/pipe-inspection
+Allow: /services/pressure-vessel-inspection
+Allow: /services/automotive-elevator-inspection
+Allow: /services/fuel-tanks-inspection
+Allow: /services/safety-valve-calibration
+Allow: /services/manometer-calibration
+
+Disallow: /dashboard/
+Disallow: /api/
+
+Sitemap: https://inspetor-industrial-nu.vercel.app/sitemap.xml

@@ -1,0 +1,41 @@
+{
+  "name": "Inspetor Industrial",
+  "short_name": "Inspetor",
+  "description": "Sistema completo de gerenciamento para inspeções industriais, com controle de agendamentos, gestão de usuários, empresas e relatórios detalhados.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Login",
+      "url": "/auth/sign-in",
+      "description": "Acessar o sistema"
+    },
+    {
+      "name": "Contato",
+      "url": "/contact",
+      "description": "Entre em contato conosco"
+    }
+  ]
+}

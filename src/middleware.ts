@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
 import { serverEnv } from './env/server'
+import {
+  hasPermissionForPathname,
+  USER_CANNOT_ACCESS_MENUS,
+} from './lib/permission'
 
 export async function middleware(request: NextRequest) {
   try {
@@ -20,6 +24,7 @@ export async function middleware(request: NextRequest) {
     const isProtectedRoute = protectedRoutes.some((protectedRoute) =>
       request.nextUrl.pathname.startsWith(protectedRoute),
     )
+
     if (isProtectedRoute) {
       const token = await getToken({
         req: request,
@@ -30,6 +35,24 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(
           new URL('/auth/sign-in', request.nextUrl.clone()),
         )
+      }
+
+      const userRole = token.role
+      if (userRole === 'user') {
+        const isNotAuthorized = USER_CANNOT_ACCESS_MENUS.some((_pathname) => {
+          const currentPathname = request.nextUrl.pathname
+            .toLowerCase()
+            .split('?')
+            .at(0)
+
+          return !hasPermissionForPathname(currentPathname ?? '', userRole)
+        })
+
+        if (isNotAuthorized) {
+          return NextResponse.redirect(
+            new URL('/dashboard/unauthorized', request.nextUrl.clone()),
+          )
+        }
       }
     }
 

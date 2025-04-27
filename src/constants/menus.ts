@@ -1,3 +1,4 @@
+import { hasPermissionForMenu } from '@inspetor/lib/permission'
 import { Optional } from '@inspetor/lib/types/optional'
 import {
   Building2,
@@ -15,6 +16,7 @@ import { FaTools } from 'react-icons/fa'
 import { FiHome } from 'react-icons/fi'
 import { GiValve } from 'react-icons/gi'
 import { LuTimer } from 'react-icons/lu'
+
 type SidebarMenu = {
   title: string
   icon: ElementType
@@ -23,7 +25,7 @@ type SidebarMenu = {
   isCollapsible?: boolean
 }
 
-export function getSidebarMenus(): Array<SidebarMenu> {
+export function getSidebarMenus(userRole = 'user'): Array<SidebarMenu> {
   return [
     {
       icon: FiHome,
@@ -99,5 +101,29 @@ export function getSidebarMenus(): Array<SidebarMenu> {
       title: 'Ajuda',
       pathname: '/dashboard/help',
     },
-  ]
+  ].reduce((acc, menu) => {
+    if (userRole === 'user') {
+      if (menu.isCollapsible) {
+        const submenus = menu.children?.filter((child) =>
+          hasPermissionForMenu(child, userRole),
+        )
+
+        return [
+          ...acc,
+          {
+            ...menu,
+            children: submenus,
+          },
+        ]
+      }
+
+      if (hasPermissionForMenu(menu, userRole)) {
+        return [...acc, menu]
+      }
+
+      return acc
+    }
+
+    return [...acc, menu]
+  }, [] as Array<SidebarMenu>)
 }

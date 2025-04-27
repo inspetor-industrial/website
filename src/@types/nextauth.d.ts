@@ -16,6 +16,8 @@ declare module 'next-auth' {
 
       companyId: string
       firebaseToken: string
+      role: string
+      profession: string
     } & DefaultSession['user']
   }
 
@@ -36,6 +38,8 @@ declare module 'next-auth' {
     id: string
     companyId: string
     firebaseToken: string
+    role: string
+    profession: string
   }
 }
 
@@ -45,5 +49,7 @@ declare module 'next-auth/jwt' {
     id: string
     companyId: string
     firebaseToken: string
+    role: string
+    profession: string
   }
 }

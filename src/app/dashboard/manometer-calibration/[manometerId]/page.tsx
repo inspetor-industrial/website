@@ -1,5 +1,8 @@
 import { Title } from '@inspetor/components/title'
+import { firebaseModels } from '@inspetor/constants/firebase-models'
+import { getFirebaseApps } from '@inspetor/lib/firebase/server'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 import { ManometerCalibrationForm } from './form'
 
@@ -22,10 +25,24 @@ export default async function ManometerView({
   const isDetailAction = String(detail) === 'true'
   const action = isDetailAction ? 'Visualizar' : 'Editar'
 
+  const firebase = getFirebaseApps()
+  const manometerRef = await firebase?.firestore
+    .collection(firebaseModels.manometers)
+    .doc(manometerId)
+    .get()
+
+  if (!manometerRef || !manometerRef.exists) {
+    return notFound()
+  }
+
+  const manometer = manometerRef.data()
+  const manometerCertificateNumber =
+    manometer?.certificateNumber || `#${manometerId}`
+
   return (
     <main>
       <Title>
-        {action} agendamento: #{manometerId}
+        {action} manômetro: {manometerCertificateNumber}
       </Title>
 
       <ManometerCalibrationForm isDetail={isDetailAction} />

@@ -47,16 +47,20 @@ export const authOptions: NextAuthOptions = {
             .doc(userOnFirebase.uid)
             .get()
 
+          const profile = userProfile.data()
+
           return {
             id: response.user.uid,
             name:
               response.user.displayName ||
               response.user.email?.replace(/@.+/, '') ||
               'Usuário desconhecido',
-            companyId: userProfile.data()?.companyId ?? 'unknown',
+            companyId: profile?.companyId ?? 'unknown',
             email: response.user.email,
             image: response.user.photoURL,
             firebaseToken: tokenId,
+            role: profile?.role ?? 'user',
+            profession: profile?.profession ?? 'unknown',
           }
         }
 
@@ -77,6 +81,8 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id
         token.companyId = user.companyId
         token.firebaseToken = user.firebaseToken
+        token.role = user.role
+        token.profession = user.profession
 
         const firebase = getFirebaseApps()
         if (!firebase) {
@@ -98,6 +104,8 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id
         session.user.companyId = token.companyId
         session.user.firebaseToken = token.firebaseToken
+        session.user.role = token.role
+        session.user.profession = token.profession
       }
 
       const firebase = getFirebaseApps()

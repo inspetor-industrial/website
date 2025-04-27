@@ -70,7 +70,7 @@ export const columns: ColumnDef<Schedule>[] = [
           <DropdownMenuItem
             onClick={() =>
               dispatchEvent(events.models.schedules.navigate.to.update, {
-                serviceId: original.id,
+                scheduleId: original.id,
               })
             }
           >
@@ -80,7 +80,7 @@ export const columns: ColumnDef<Schedule>[] = [
           <DropdownMenuItem
             onClick={() =>
               dispatchEvent(events.models.schedules.navigate.to.detail, {
-                serviceId: original.id,
+                scheduleId: original.id,
               })
             }
           >

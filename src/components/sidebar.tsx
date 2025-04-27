@@ -5,7 +5,7 @@ import { toast } from '@inspetor/hooks/use-toast'
 import { Optional } from '@inspetor/lib/types/optional'
 import { cn } from '@inspetor/lib/utils'
 import { ChevronsLeft, LogOut } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { ElementType, ReactNode } from 'react'
 
 import { SidebarCollapsibleMenu } from './sidebar-collapsable-menu'
@@ -38,7 +38,11 @@ export type NavigationParams = {
 
 export function InspetorSidebar() {
   const { state, toggleSidebar } = useSidebar()
-  const sidebarMenus = getSidebarMenus()
+
+  const { data } = useSession()
+
+  const user = data?.user
+  const sidebarMenus = getSidebarMenus(user?.role)
 
   function renderSidebarMenuItem(
     menu: SidebarMenu | Optional<SidebarMenu, 'icon'>,
